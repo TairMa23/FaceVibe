@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import axios from "axios";
+import CarouselPic from "./components/CarouselPic";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [array, setArray] = useState([]);
+  const [emo, setEmo] = useState("");
+  const fetchEmo = async () => {
+    const response = await axios.get("http://localhost:8080/api/emotion");
+    setEmo(response.data.emotion);
+  };
+  // const fetchAPI = async () => {
+  //   const response = await axios.get("http://localhost:8080/api/users");
+  //   setArray(response.data.users);
+  // };
+  useEffect(() => {
+    fetchEmo();
+  });
+  // useEffect(() => {
+  //   fetchAPI();
+  // }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <CarouselPic />
+      </div>
+      <div>
+        <p>{emo}</p>
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          {array.map((user, index) => (
+            <span key={index}> {user} </span>
+          ))}
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
