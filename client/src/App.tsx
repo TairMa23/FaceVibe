@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import CarouselPic from "./components/CarouselPic";
+import StartButton from "./components/StartButton";
 import "./App.css";
 
 function App() {
@@ -25,6 +26,9 @@ function App() {
     <>
       <div className="card">
         <CarouselPic />
+      </div>
+      <div>
+        <StartButton />
       </div>
       <div>
         <p>{emo}</p>

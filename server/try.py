@@ -6,7 +6,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 cors = CORS(app, origins='*')
-# ta
+
 
 def analyze_emotions():
     # Load face cascade classifier
