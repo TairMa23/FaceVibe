@@ -1,70 +1,45 @@
 from flask import Flask
-from flask_cors import CORS
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, emit
+import base64
+import numpy as np
 import cv2
 from deepface import DeepFace
-from datetime import datetime
-import threading
 
 app = Flask(__name__)
-cors = CORS(app, origins='*')
+app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-def analyze_emotions():
-    # Load face cascade classifier
-    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+# Load face cascade classifier
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
-    # Start capturing video
-    cap = cv2.VideoCapture(0)
+@socketio.on('image')
+def handle_image(data):
+    try:
+        # Decode base64 image
+        image_data = base64.b64decode(data['imageDataURL'].split(',')[1])
+        image_np = np.frombuffer(image_data, dtype=np.uint8)
+        img = cv2.imdecode(image_np, cv2.IMREAD_COLOR)
 
-    while True:
-        # Capture frame-by-frame
-        ret, frame = cap.read()
+        # Convert to grayscale
+        gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-        # Convert frame to grayscale
-        gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-        # Convert grayscale frame to RGB format
-        rgb_frame = cv2.cvtColor(gray_frame, cv2.COLOR_GRAY2RGB)
-
-        # Detect faces in the frame
-        faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+        # Detect faces
+        faces = face_cascade.detectMultiScale(gray_img, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
 
         for (x, y, w, h) in faces:
-            # Extract the face ROI (Region of Interest)
-            face_roi = rgb_frame[y:y + h, x:x + w]
+            # Extract face ROI
+            face_roi = img[y:y + h, x:x + w]
 
-            # Perform emotion analysis on the face ROI
+            # Perform emotion analysis
             result = DeepFace.analyze(face_roi, actions=['emotion'], enforce_detection=False)
-
-            # Determine the dominant emotion
             emotion = result[0]['dominant_emotion']
 
-            # Prepare the output string
-            output = f"{datetime.now().strftime('%H:%M:%S')})  {emotion}"
+            # Emit emotion result
+            emit('emotion', {'emotion': emotion})
+            break  # Only process the first detected face
 
-            # Emit the output to all connected clients
-            socketio.emit('emotion_update', {'emotion': output})
+    except Exception as e:
+        print(f"Error processing image: {e}")
 
-        # Press 'q' to exit
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-    # Release the capture and close all windows
-    cap.release()
-    cv2.destroyAllWindows()
-
-@app.route("/")
-def index():
-    return "Emotion Analysis Server is Running"
-
-@socketio.on('connect')
-def handle_connect():
-    print('Client connected')
-
-if __name__ == "__main__":
-    # Run the emotion analysis in a separate thread
-    thread = threading.Thread(target=analyze_emotions)
-    thread.start()
-    
-    socketio.run(app, debug=True, port=8080)
+if __name__ == '__main__':
+    socketio.run(app, host='0.0.0.0', port=5000)
