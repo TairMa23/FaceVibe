@@ -9,7 +9,7 @@ pip install -r requirements.txt
 
 **run project**
 server:
-python emotion.py | python try.py
+python emotion.py
 
 client: 
 npm run dev
