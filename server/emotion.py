@@ -1,9 +1,11 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_socketio import SocketIO, emit
 import base64
 import numpy as np
 import cv2
 from deepface import DeepFace
+ 
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'

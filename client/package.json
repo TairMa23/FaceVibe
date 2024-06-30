@@ -14,8 +14,10 @@
     "@tensorflow-models/mobilenet": "^2.1.1",
     "@tensorflow/tfjs": "^4.20.0",
     "axios": "^1.7.2",
+    "bootstrap": "^5.3.3",
     "npm": "^10.8.1",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.10.4",
     "react-dom": "^18.2.0",
     "socket.io-client": "^4.7.5"
   },
