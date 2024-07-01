@@ -1,12 +1,12 @@
-import { useState } from "react";
-import CarouselPic from "./components/CarouselPic";
-import StartButton from "./components/StartButton";
-import DataFetching from "./components/DataFetching";
-import "./App.css";
-import EmotionDetection from "./components/EmotionDetection";
+import React, { useState } from 'react';
+import CarouselPic from './components/CarouselPic';
+import StartButton from './components/StartButton';
+import DataFetching from './components/DataFetching';
+import './App.css';
+import EmotionDetection from './components/EmotionDetection';
 
 function App() {
-  const [running, setRunning] = useState<boolean>(false);
+  const [running, setRunning] = useState(false);
   const [images, setImages] = useState<string[]>([]);
 
   const handleFetchSuccess = (fetchedImages: string[]) => {
@@ -17,24 +17,14 @@ function App() {
   return (
     <>
       <div className="card">
-        {images.length > 0 ? (
-          <CarouselPic images={images} />
-        ) : (
-          <p>Loading images...</p>
-        )}
+        {images.length > 0 ? <CarouselPic images={images} /> : <p>Loading images...</p>}
         <DataFetching onFetchSuccess={handleFetchSuccess} />
       </div>
       <div>
         <StartButton running={running} setRunning={setRunning} />
       </div>
       <div>
-        {running ? (
-          <>
-            <EmotionDetection />
-          </>
-        ) : (
-          <p>Press the button to start</p>
-        )}
+        {running ? <EmotionDetection /> : <p>Press the button to start</p>}
       </div>
     </>
   );
