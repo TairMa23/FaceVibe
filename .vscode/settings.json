@@ -1,0 +1,6 @@
+{
+  "python.analysis.extraPaths": [
+    "./server/facial_expression_recognition",
+    "./server/data-api"
+  ]
+}
