@@ -6,7 +6,7 @@ const EmotionDetection: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const socket = io("http://localhost:5000");
+    const socket = io("http://localhost:8080");
 
     socket.on("emotion", (data: { emotion: string }) => {
       setEmotion(data.emotion);

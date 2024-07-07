@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Blueprint, Flask, jsonify
 from flask_socketio import SocketIO, emit
 import base64
 import numpy as np
@@ -6,14 +6,11 @@ import cv2
 from deepface import DeepFace
  
 
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app, cors_allowed_origins="*")
-
+socketio = SocketIO()
 # Load face cascade classifier
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
+emotion_blueprint = Blueprint('emotion', __name__)
 @socketio.on('image')
 def handle_image(data):
     try:
@@ -42,6 +39,3 @@ def handle_image(data):
 
     except Exception as e:
         print(f"Error processing image: {e}")
-
-if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=5000)
