@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CarouselPic from "./components/CarouselPic";
 import StartButton from "./components/StartButton";
 import DataFetching from "./components/DataFetching";
@@ -27,7 +27,7 @@ function App() {
       <div>
         <StartButton running={running} setRunning={setRunning} />
       </div>
-      <div>{running ? <EmotionDetection /> : <p>fix stop </p>}</div>
+      <div>{running ? <EmotionDetection running={running} /> : <p></p>}</div>
     </>
   );
 }

@@ -1,5 +1,3 @@
-import React from "react";
-
 interface StartButtonProps {
   running: boolean;
   setRunning: (running: boolean) => void;

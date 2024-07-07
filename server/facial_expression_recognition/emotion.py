@@ -33,7 +33,7 @@ def handle_image(data):
             result = DeepFace.analyze(face_roi, actions=['emotion'], enforce_detection=False)
             emotion = result[0]['dominant_emotion']
             print('emotion: ', emotion)
-            # Emit emotion result
+            # Emit result
             emit('emotion', {'emotion': emotion})
             break  # Only process the first detected face
 

@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
 
-const EmotionDetection: React.FC = () => {
+interface EmotionDetectionProps {
+  running: boolean;
+}
+
+const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
   const [emotion, setEmotion] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const socket = io("http://localhost:8080");
@@ -14,39 +21,66 @@ const EmotionDetection: React.FC = () => {
     });
 
     const captureImage = () => {
-      const video = document.createElement("video");
-      navigator.mediaDevices
-        .getUserMedia({ video: true })
-        .then((stream) => {
-          video.srcObject = stream;
-          video.onloadedmetadata = () => {
-            video.play();
-            setInterval(() => {
-              const canvas = document.createElement("canvas");
-              canvas.width = video.videoWidth;
-              canvas.height = video.videoHeight;
-              const context = canvas.getContext("2d");
-              if (context) {
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                const imageDataURL = canvas.toDataURL("image/jpeg");
-                sendImageToServer(imageDataURL);
-              }
-            }, 1000); // Capture image every second
-          };
-        })
-        .catch((error) => console.error("Error accessing the camera:", error));
+      if (videoRef.current) {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then((stream) => {
+            streamRef.current = stream;
+            videoRef.current!.srcObject = stream;
+            videoRef.current!.onloadedmetadata = () => {
+              videoRef.current!.play();
+              intervalRef.current = setInterval(() => {
+                if (videoRef.current) {
+                  const canvas = document.createElement("canvas");
+                  canvas.width = videoRef.current.videoWidth;
+                  canvas.height = videoRef.current.videoHeight;
+                  const context = canvas.getContext("2d");
+                  if (context) {
+                    context.drawImage(
+                      videoRef.current,
+                      0,
+                      0,
+                      canvas.width,
+                      canvas.height
+                    );
+                    const imageDataURL = canvas.toDataURL("image/jpeg");
+                    sendImageToServer(imageDataURL);
+                  }
+                }
+              }, 1000); // Capture image every second
+            };
+          })
+          .catch((error) =>
+            console.error("Error accessing the camera:", error)
+          );
+      }
     };
 
     const sendImageToServer = (imageDataURL: string) => {
       socket.emit("image", { imageDataURL });
     };
 
-    captureImage();
+    if (running) {
+      captureImage();
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+      }
+    }
 
     return () => {
       socket.disconnect();
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+      }
     };
-  }, []);
+  }, [running]);
 
   return (
     <div>
@@ -59,6 +93,7 @@ const EmotionDetection: React.FC = () => {
       ) : (
         <p>Detected Emotion: {emotion}</p>
       )}
+      <video ref={videoRef} style={{ display: "none" }} />
     </div>
   );
 };
