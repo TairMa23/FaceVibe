@@ -4,16 +4,12 @@ import StartButton from "./components/StartButton";
 import DataFetching from "./components/DataFetching";
 import "./App.css";
 import EmotionDetection from "./components/EmotionDetection";
+import { useRunningStore, useImageStore } from "./store/useStore";
 
 function App() {
-  const [running, setRunning] = useState(false);
-  const [images, setImages] = useState<string[]>([]);
-
-  const handleFetchSuccess = (fetchedImages: string[]) => {
-    console.log("Fetched images:", fetchedImages); // Debugging line
-    setImages(fetchedImages);
-  };
-
+  const running = useRunningStore((state) => state.running);
+  const setRunning = useRunningStore((state) => state.setRunning);
+  const images = useImageStore((state) => state.images);
   return (
     <>
       <div className="card">
@@ -22,10 +18,10 @@ function App() {
         ) : (
           <p>Loading images...</p>
         )}
-        <DataFetching onFetchSuccess={handleFetchSuccess} />
+        <DataFetching />
       </div>
       <div>
-        <StartButton running={running} setRunning={setRunning} />
+        <StartButton />
       </div>
       <div>{running ? <EmotionDetection running={running} /> : <p></p>}</div>
     </>

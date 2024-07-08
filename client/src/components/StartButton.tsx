@@ -1,9 +1,8 @@
-interface StartButtonProps {
-  running: boolean;
-  setRunning: (running: boolean) => void;
-}
+import { useRunningStore } from "../store/useStore";
 
-function StartButton({ running, setRunning }: StartButtonProps) {
+function StartButton() {
+  const running = useRunningStore((state) => state.running);
+  const setRunning = useRunningStore((state) => state.setRunning);
   const handleClick = () => {
     setRunning(!running);
   };
