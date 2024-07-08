@@ -8,15 +8,18 @@ const DataFetching: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:8080/api/furniture");
-        const imageUrls = response.data.furniture.map((item: any) => item.url);
-        setImages(imageUrls);
+        const imageItems = response.data.furniture.map((item: any) => ({
+          id: item.id, // נניח שיש שדה id לכל פריט
+          url: item.url,
+        }));
+        setImages(imageItems);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [setImages]);
 
   return null;
 };

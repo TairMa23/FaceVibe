@@ -8,16 +8,11 @@ import { useRunningStore, useImageStore } from "./store/useStore";
 
 function App() {
   const running = useRunningStore((state) => state.running);
-  const setRunning = useRunningStore((state) => state.setRunning);
   const images = useImageStore((state) => state.images);
   return (
     <>
       <div className="card">
-        {images.length > 0 ? (
-          <CarouselPic images={images} />
-        ) : (
-          <p>Loading images...</p>
-        )}
+        {images.length > 0 ? <CarouselPic /> : <p>Loading images...</p>}
         <DataFetching />
       </div>
       <div>
