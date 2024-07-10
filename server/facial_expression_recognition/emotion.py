@@ -14,6 +14,9 @@ emotion_blueprint = Blueprint('emotion', __name__)
 @socketio.on('image')
 def handle_image(data):
     try:
+        # Extract currentImageId
+        current_image_id = data.get('currentImageId')
+
         # Decode base64 image
         image_data = base64.b64decode(data['imageDataURL'].split(',')[1])
         image_np = np.frombuffer(image_data, dtype=np.uint8)
@@ -32,10 +35,12 @@ def handle_image(data):
             # Perform emotion analysis
             result = DeepFace.analyze(face_roi, actions=['emotion'], enforce_detection=False)
             emotion = result[0]['dominant_emotion']
-            print('emotion: ', emotion)
+            print(f"Image ID: {current_image_id}, Detected emotion: {emotion}")
             # Emit result
-            emit('emotion', {'emotion': emotion})
+            emit('emotion', {'emotion': emotion, 'currentImageId': current_image_id})
             break  # Only process the first detected face
 
     except Exception as e:
         print(f"Error processing image: {e}")
+          # Emit error message with currentImageId
+        emit('emotion', {'error': str(e), 'currentImageId': current_image_id})

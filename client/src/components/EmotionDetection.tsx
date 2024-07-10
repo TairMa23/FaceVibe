@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
+import { useImageStore } from "../store/useStore";
 
 interface EmotionDetectionProps {
   running: boolean;
@@ -11,7 +12,7 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
+  const currentImageId = useImageStore((state) => state.currentImageId);
   useEffect(() => {
     const socket = io("http://localhost:8080");
 
@@ -57,7 +58,7 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
     };
 
     const sendImageToServer = (imageDataURL: string) => {
-      socket.emit("image", { imageDataURL });
+      socket.emit("image", { imageDataURL, currentImageId });
     };
 
     if (running) {
@@ -80,7 +81,7 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
         streamRef.current.getTracks().forEach((track) => track.stop());
       }
     };
-  }, [running]);
+  }, [running, currentImageId]);
 
   return (
     <div>
