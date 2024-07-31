@@ -18,18 +18,10 @@ const Hero = () => {
             analyzes your reactions to recommend furniture that suits your
             taste.
           </p>
-          <span>
-            <a
-              href="/preferenceGallery"
-              className="text-blue-500 hover:underline"
-            >
-              Go To App
-            </a>
-          </span>
           <Button
             className="bg-my-pink px-6 py-3 rounded-sm text-white fnt font-semibold"
             title="Lets Start"
-            link="/products"
+            link="/preferenceGallery"
           />
         </div>
         <img

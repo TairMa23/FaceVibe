@@ -8,17 +8,8 @@ import PreferenceGallery from "./pages/PreferenceGallery/PreferenceGallery";
 
 function App() {
   return (
-    <>
       <div>
-        <Toaster
-          position="top-center"
-          toastOptions={{
-            style: {
-              background: "#fff",
-              color: "#111827",
-            },
-          }}
-        />
+         
 
         <Routes>
           <Route path="/" element={<Home />} />

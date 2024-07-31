@@ -4,14 +4,14 @@ import FooterBar from "../FooterBar/FooterBar";
 
 const Footer = () => {
   return (
-    <div>
-      <div className=" py-6">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 justify-items-start md:justify-items-center items-start mt-6 gap-6">
-          <div className="mx-6">
+    <div className="w-full"> {/* הוספת w-full כדי להתפרס על כל הרוחב */}
+      <div className="py-6">
+        <div className="container mx-auto w-full grid grid-cols-1 md:grid-cols-3 justify-items-start items-start mt-6 gap-6">
+          <div className="mx-6 text-center md:text-left">
             <Logo />
             <form className="flex items-center py-4 gap-2"></form>
           </div>
-          <div className="md:mr-6 mx-6">
+          <div className="md:mr-6 mx-6 text-left">
             <h2 className="text-black font-bold text-lg">Development Team</h2>
             <ul className="text-my-subText text-sm">
               <li className="py-2">
@@ -25,7 +25,7 @@ const Footer = () => {
               © 2024 FACEVIBE. All rights reserved.
             </h2>
           </div>
-          <div className="md:ml-6 mx-6">
+          <div className="md:ml-6 mx-6 text-left">
             <h2 className="text-black font-bold text-lg">
               Confirmation of Consent
             </h2>

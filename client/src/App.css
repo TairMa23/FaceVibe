@@ -12,10 +12,16 @@ body {
 }
 
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --thumb-color: #fb2e86;
+    --track-color: #f7f7f7;
+    --scrollbar-width: 6px;
+    --scrollbar-border-radius: 5px;
+    --scrollbar-thumb-border-width: 0px;
+    --scrollbar-thumb-border-color: #a6a6a6;
+   
 }
 
 .header {
@@ -138,17 +144,6 @@ button:hover {
   margin-top: 1rem;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  --thumb-color: #fb2e86;
-  --track-color: #f7f7f7;
-  --scrollbar-width: 6px;
-  --scrollbar-border-radius: 5px;
-  --scrollbar-thumb-border-width: 0px;
-  --scrollbar-thumb-border-color: #a6a6a6;
-}
 
 body {
   font-family: "Lato", sans-serif;
