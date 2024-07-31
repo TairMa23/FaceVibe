@@ -1,5 +1,4 @@
-import create from "zustand";
-
+import { create } from "zustand";
 // הגדרת הטיפוס של ה-state
 interface RunningState {
   running: boolean;

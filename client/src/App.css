@@ -1,5 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   background-color: #f8f9fa;
   color: #333;
   margin: 0;
@@ -131,4 +136,46 @@ button:hover {
 .read-the-docs {
   color: #888;
   margin-top: 1rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  --thumb-color: #fb2e86;
+  --track-color: #f7f7f7;
+  --scrollbar-width: 6px;
+  --scrollbar-border-radius: 5px;
+  --scrollbar-thumb-border-width: 0px;
+  --scrollbar-thumb-border-color: #a6a6a6;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.fnt {
+  font-family: "Josefin Sans", sans-serif;
+}
+
+.scrollrec::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+.scrollrec::-webkit-scrollbar-track {
+  background: var(--track-color);
+  border-radius: var(--scrollbar-border-radius);
+}
+
+.scrollrec::-webkit-scrollbar-thumb {
+  background: var(--thumb-color);
+  border-radius: var(--scrollbar-border-radius);
+  border: var(--scrollbar-thumb-border-width) solid
+    var(--scrollbar-thumb-border-color);
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .scrollrec {
+    scrollbar-color: var(--thumb-color) var(--track-color);
+  }
 }

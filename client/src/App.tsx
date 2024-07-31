@@ -1,24 +1,31 @@
-import { useState } from "react";
-import CarouselPic from "./components/CarouselPic";
-import StartButton from "./components/StartButton";
-import DataFetching from "./components/DataFetching";
 import "./App.css";
-import EmotionDetection from "./components/EmotionDetection";
 import { useRunningStore, useImageStore } from "./store/useStore";
+import Home from "./pages/Home/Home";
+import Contact from "./pages/Contact/Contact";
+import { Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import PreferenceGallery from "./pages/PreferenceGallery/PreferenceGallery";
 
 function App() {
-  const running = useRunningStore((state) => state.running);
-  const images = useImageStore((state) => state.images);
   return (
     <>
-      <div className="card">
-        {images.length > 0 ? <CarouselPic /> : <p>Loading images...</p>}
-        <DataFetching />
-      </div>
       <div>
-        <StartButton />
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            style: {
+              background: "#fff",
+              color: "#111827",
+            },
+          }}
+        />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/preferenceGallery" element={<PreferenceGallery />} />
+        </Routes>
       </div>
-      <div>{running ? <EmotionDetection running={running} /> : <p></p>}</div>
     </>
   );
 }
