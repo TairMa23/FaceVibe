@@ -1,6 +1,6 @@
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
-import { useImageStore } from "../store/useStore";
+import { useImageStore } from "../../store/useStore";
 
 const CarouselPic: React.FC = () => {
   const images = useImageStore((state) => state.images);

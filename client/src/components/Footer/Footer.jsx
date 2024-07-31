@@ -1,10 +1,11 @@
 import React from "react";
 import Logo from "../Header/Logo";
 import FooterBar from "../FooterBar/FooterBar";
+ 
 
 const Footer = () => {
   return (
-    <div className="w-full"> {/* הוספת w-full כדי להתפרס על כל הרוחב */}
+    <div className="w-full">  
       <div className="py-6">
         <div className="container mx-auto w-full grid grid-cols-1 md:grid-cols-3 justify-items-start items-start mt-6 gap-6">
           <div className="mx-6 text-center md:text-left">

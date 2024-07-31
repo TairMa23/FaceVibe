@@ -13,17 +13,15 @@ body {
 
 #root {
   margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    --thumb-color: #fb2e86;
-    --track-color: #f7f7f7;
-    --scrollbar-width: 6px;
-    --scrollbar-border-radius: 5px;
-    --scrollbar-thumb-border-width: 0px;
-    --scrollbar-thumb-border-color: #a6a6a6;
-   
+  padding: 0;
+  box-sizing: border-box;
+  --thumb-color: #fb2e86;
+  --track-color: #f7f7f7;
+  --scrollbar-width: 6px;
+  --scrollbar-border-radius: 5px;
+  --scrollbar-thumb-border-width: 0px;
+  --scrollbar-thumb-border-color: #a6a6a6;
 }
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -67,7 +65,6 @@ body {
     animation: logo-spin infinite 20s linear;
   }
 }
-
 .card {
   background-color: #fff;
   border: 1px solid #dee2e6;
@@ -94,39 +91,23 @@ body {
   transform: scale(1.05);
 }
 
-button {
-  background-color: #007bff;
-  border: none;
-  border-radius: 0.25rem;
-  color: white;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-button:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
-}
-
 .start-button {
-  border: none;
-  border-radius: 0.25rem;
-  color: #333;
-  cursor: pointer;
-  padding: 0.75rem 1.5rem;
-  font-size: 1.1rem;
-  font-weight: bold;
+  background-color: #fb2e86; /* צבע הרקע המקורי של bg-my-pink */
+  padding: 0.75rem 1.5rem; /* px-6 py-3 */
+  border-radius: 0.125rem; /* rounded-sm */
+  color: white; /* text-white */
+  font-family: "Josefin Sans", sans-serif; /* fnt */
+  font-weight: 600; /* font-semibold */
   transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .start-button.start {
-  background-color: #ffded5; /* צבע לכפתור "התחל" */
+  background-color: #FB2E86; /* צבע לכפתור "התחל" */
 }
 
 .start-button.stop {
-  background-color: #ffc4b8; /* צבע לכפתור "עצור" */
+  background-color: #FB2E86; /* צבע לכפתור "עצור" */
 }
 
 .start-button:hover {
@@ -143,7 +124,6 @@ button:hover {
   color: #888;
   margin-top: 1rem;
 }
-
 
 body {
   font-family: "Lato", sans-serif;
@@ -165,8 +145,7 @@ body {
 .scrollrec::-webkit-scrollbar-thumb {
   background: var(--thumb-color);
   border-radius: var(--scrollbar-border-radius);
-  border: var(--scrollbar-thumb-border-width) solid
-    var(--scrollbar-thumb-border-color);
+  border: var(--scrollbar-thumb-border-width) solid var(--scrollbar-thumb-border-color);
 }
 
 @supports not selector(::-webkit-scrollbar) {

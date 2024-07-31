@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
-import { useImageStore } from "../store/useStore";
+import { useImageStore } from "../../store/useStore";
 
 interface EmotionDetectionProps {
   running: boolean;

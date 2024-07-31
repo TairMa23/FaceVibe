@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { useImageStore } from "../store/useStore";
+import { useImageStore } from "../../store/useStore";
 
 const DataFetching: React.FC = () => {
   const setImages = useImageStore((state) => state.setImages);
