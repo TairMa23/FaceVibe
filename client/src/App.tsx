@@ -8,15 +8,15 @@ import PreferenceGallery from "./pages/PreferenceGallery/PreferenceGallery";
 
 function App() {
   return (
+    <>
       <div>
-         
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/preferenceGallery" element={<PreferenceGallery />} />
         </Routes>
       </div>
+      <Toaster />
     </>
   );
 }
