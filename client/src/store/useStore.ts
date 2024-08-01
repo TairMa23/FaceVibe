@@ -10,13 +10,11 @@ interface ImageItem {
   url: string;
 }
 interface ImageState {
-  faceCascadeLoaded: any;
   images: ImageItem[];
   currentImageId: string | null;
   setImages: (images: ImageItem[]) => void;
   setCurrentImageId: (id: string) => void;
 }
-
 // יצירת ה-store
 export const useRunningStore = create<RunningState>((set) => ({
   running: false,

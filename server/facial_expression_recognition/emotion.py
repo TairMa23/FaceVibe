@@ -7,8 +7,6 @@ from deepface import DeepFace
 from facial_expression_recognition.emotion_analyzer import EmotionAnalyzer
 
 socketio = SocketIO()
-# Load face cascade classifier
-# face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 emotion_blueprint = Blueprint('emotion', __name__)
 
