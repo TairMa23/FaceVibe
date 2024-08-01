@@ -1,25 +1,30 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { useImageStore } from "./store/useStore";
+
 import Home from "./pages/Home/Home";
 import Contact from "./pages/Contact/Contact";
 import { Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import PreferenceGallery from "./pages/PreferenceGallery/PreferenceGallery";
+import { useEmotionStore } from "./store/useEmotionStore";
 
 function App() {
-  const { loadFaceCascade, faceCascadeLoaded } = useImageStore();
+  const { loadFaceCascade, faceCascadeLoaded, initSocket, disconnectSocket } =
+    useEmotionStore();
 
   useEffect(() => {
     loadFaceCascade();
-  }, [loadFaceCascade]);
+    initSocket();
 
+    return () => {
+      disconnectSocket();
+    };
+  }, [loadFaceCascade, initSocket, disconnectSocket]);
   if (!faceCascadeLoaded) {
     console.log("Loading face cascade classifier...");
   } else {
     console.log("Face cascade classifier loaded successfully");
   }
-
   return (
     <>
       <div>
