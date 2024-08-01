@@ -13,7 +13,9 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
   const streamRef = useRef<MediaStream | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const currentImageId = useImageStore((state) => state.currentImageId);
+  const faceCascadeLoaded = useImageStore((state) => state.faceCascadeLoaded);
   useEffect(() => {
+    if (!faceCascadeLoaded) return;
     const socket = io("http://localhost:8080");
 
     socket.on("emotion", (data: { emotion: string }) => {
@@ -61,7 +63,7 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
       socket.emit("image", { imageDataURL, currentImageId });
     };
 
-    if (running) {
+    if (running && faceCascadeLoaded) {
       captureImage();
     } else {
       if (intervalRef.current) {
@@ -81,7 +83,10 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
         streamRef.current.getTracks().forEach((track) => track.stop());
       }
     };
-  }, [running, currentImageId]);
+  }, [running, currentImageId, faceCascadeLoaded]);
+  if (!faceCascadeLoaded) {
+    return <div>Loading face detection model...</div>;
+  }
 
   return (
     <div>

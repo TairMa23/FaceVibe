@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRunningStore } from "../../store/useStore";
 
 function StartButton() {
@@ -11,7 +10,9 @@ function StartButton() {
   return (
     <div className="d-grid gap-2 col-6 mx-auto">
       <button
-        className={`start-button ${running ? "stop" : "start"} bg-my-pink px-6 py-3 rounded-sm text-white fnt font-semibold`}
+        className={`start-button ${
+          running ? "stop" : "start"
+        } bg-my-pink px-6 py-3 rounded-sm text-white fnt font-semibold`}
         type="button"
         onClick={handleClick}
       >
