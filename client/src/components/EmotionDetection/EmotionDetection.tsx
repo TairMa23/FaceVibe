@@ -1,25 +1,21 @@
-import React, { useEffect, useState, useRef } from "react";
-import io from "socket.io-client";
+import React, { useEffect, useRef } from "react";
 import { useImageStore } from "../../store/useStore";
+import { useEmotionStore } from "../../store/useEmotionStore";
 
 interface EmotionDetectionProps {
   running: boolean;
 }
 
 const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
-  const [emotion, setEmotion] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const currentImageId = useImageStore((state) => state.currentImageId);
-  useEffect(() => {
-    const socket = io("http://localhost:8080");
 
-    socket.on("emotion", (data: { emotion: string }) => {
-      setEmotion(data.emotion);
-      setLoading(false); // Stop loading once we receive the first emotion
-    });
+  const { currentImageId } = useImageStore();
+  const { faceCascadeLoaded, emotion, sendImageToServer } = useEmotionStore();
+
+  useEffect(() => {
+    if (!faceCascadeLoaded) return;
 
     const captureImage = () => {
       if (videoRef.current) {
@@ -45,23 +41,19 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
                       canvas.height
                     );
                     const imageDataURL = canvas.toDataURL("image/jpeg");
-                    sendImageToServer(imageDataURL);
+                    sendImageToServer(imageDataURL, currentImageId);
                   }
                 }
               }, 1000); // Capture image every second
             };
           })
-          .catch((error) =>
-            console.error("Error accessing the camera:", error)
-          );
+          .catch((error) => {
+            console.error("Error accessing the camera:", error);
+          });
       }
     };
 
-    const sendImageToServer = (imageDataURL: string) => {
-      socket.emit("image", { imageDataURL, currentImageId });
-    };
-
-    if (running) {
+    if (running && faceCascadeLoaded) {
       captureImage();
     } else {
       if (intervalRef.current) {
@@ -73,7 +65,6 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
     }
 
     return () => {
-      socket.disconnect();
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
@@ -81,11 +72,15 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
         streamRef.current.getTracks().forEach((track) => track.stop());
       }
     };
-  }, [running, currentImageId]);
+  }, [running, currentImageId, faceCascadeLoaded, sendImageToServer]);
+
+  if (!faceCascadeLoaded) {
+    return <div>Loading face detection model...</div>;
+  }
 
   return (
     <div>
-      {loading ? (
+      {!emotion ? (
         <>
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Loading...</span>

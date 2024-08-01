@@ -7,13 +7,28 @@ from deepface import DeepFace
 from facial_expression_recognition.emotion_analyzer import EmotionAnalyzer
 
 socketio = SocketIO()
-# Load face cascade classifier
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 emotion_blueprint = Blueprint('emotion', __name__)
 
 # Create an instance of EmotionAnalyzer
 emotion_analyzer = EmotionAnalyzer()
+
+face_cascade = None
+
+@emotion_blueprint.route('/load_face_cascade', methods=['GET'])
+def load_face_cascade():
+    global face_cascade
+    try:
+        face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+        if face_cascade.empty():
+            return jsonify({"status": "error", "message": "Failed to load face cascade classifier"}), 500
+        else:
+            print('Face cascade classifier loaded successfully')
+            return jsonify({"status": "success", "message": "Face cascade classifier loaded successfully"})
+        
+   
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 @socketio.on('image')
 def handle_image(data):
