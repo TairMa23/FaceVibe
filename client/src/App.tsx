@@ -5,26 +5,29 @@ import Contact from "./pages/Contact/Contact";
 import { Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import PreferenceGallery from "./pages/PreferenceGallery/PreferenceGallery";
-import WhatsappButton from "./components/WhatsappButton/WhatsappButton";  
+import WhatsappButton from "./components/WhatsappButton/WhatsappButton";
+
 import { useEmotionStore } from "./store/useEmotionStore";
 
 function App() {
-  const { loadFaceCascade, faceCascadeLoaded, initSocket, disconnectSocket } =
+  const { loadDetector, detectorLoaded, initSocket, disconnectSocket } =
     useEmotionStore();
 
   useEffect(() => {
-    loadFaceCascade();
+    loadDetector();
     initSocket();
 
     return () => {
       disconnectSocket();
     };
-  }, [loadFaceCascade, initSocket, disconnectSocket]);
-  if (!faceCascadeLoaded) {
-    console.log("Loading face cascade classifier...");
+  }, [loadDetector, initSocket, disconnectSocket]);
+
+  if (!detectorLoaded) {
+    console.log("Loading FER detector...");
   } else {
-    console.log("Face cascade classifier loaded successfully");
+    console.log("FER detector loaded successfully");
   }
+
   return (
     <>
       <div>

@@ -3,39 +3,41 @@ import axios from "axios";
 import io, { Socket } from "socket.io-client";
 
 interface EmotionState {
-  faceCascadeLoaded: boolean;
+  detectorLoaded: boolean;
   socket: Socket | null;
   emotion: string;
-  loadFaceCascade: () => Promise<void>;
+  score: number;
+  loadDetector: () => Promise<void>;
   initSocket: () => void;
   disconnectSocket: () => void;
   sendImageToServer: (
     imageDataURL: string,
     currentImageId: string | null
   ) => void;
-  setEmotion: (emotion: string) => void;
+  setEmotion: (emotion: string, score: number) => void;
 }
 
 export const useEmotionStore = create<EmotionState>((set, get) => ({
-  faceCascadeLoaded: false,
+  detectorLoaded: false,
   socket: null,
   emotion: "",
-  loadFaceCascade: async () => {
+  score: 0,
+  loadDetector: async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/emotion/load_face_cascade"
+        "http://localhost:8080/emotion/load_detector"
       );
       if (response.data.status === "success") {
-        set({ faceCascadeLoaded: true });
+        set({ detectorLoaded: true });
       }
     } catch (error) {
-      console.error("Failed to load face cascade classifier:", error);
+      console.error("Failed to load FER detector:", error);
     }
   },
   initSocket: () => {
     const socket = io("http://localhost:8080");
-    socket.on("emotion", (data: { emotion: string }) => {
-      get().setEmotion(data.emotion);
+    socket.on("emotion", (data: { emotion: string; score: number }) => {
+      get().setEmotion(data.emotion, data.score);
     });
     set({ socket });
   },
@@ -52,5 +54,5 @@ export const useEmotionStore = create<EmotionState>((set, get) => ({
       socket.emit("image", { imageDataURL, currentImageId });
     }
   },
-  setEmotion: (emotion: string) => set({ emotion }),
+  setEmotion: (emotion: string, score: number) => set({ emotion, score }),
 }));

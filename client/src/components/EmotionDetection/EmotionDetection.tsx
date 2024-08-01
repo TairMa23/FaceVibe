@@ -12,10 +12,11 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const { currentImageId } = useImageStore();
-  const { faceCascadeLoaded, emotion, sendImageToServer } = useEmotionStore();
+  const { detectorLoaded, emotion, score, sendImageToServer } =
+    useEmotionStore();
 
   useEffect(() => {
-    if (!faceCascadeLoaded) return;
+    if (!detectorLoaded) return;
 
     const captureImage = () => {
       if (videoRef.current) {
@@ -53,7 +54,7 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
       }
     };
 
-    if (running && faceCascadeLoaded) {
+    if (running && detectorLoaded) {
       captureImage();
     } else {
       if (intervalRef.current) {
@@ -72,10 +73,10 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
         streamRef.current.getTracks().forEach((track) => track.stop());
       }
     };
-  }, [running, currentImageId, faceCascadeLoaded, sendImageToServer]);
+  }, [running, currentImageId, detectorLoaded, sendImageToServer]);
 
-  if (!faceCascadeLoaded) {
-    return <div>Loading face detection model...</div>;
+  if (!detectorLoaded) {
+    return <div>Loading emotion detection model...</div>;
   }
 
   return (
@@ -87,7 +88,9 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
           </div>
         </>
       ) : (
-        <p>Detected Emotion: {emotion}</p>
+        <p>
+          Detected Emotion: {emotion} (Confidence: {(score * 100).toFixed(2)}%)
+        </p>
       )}
       <video ref={videoRef} style={{ display: "none" }} />
     </div>
