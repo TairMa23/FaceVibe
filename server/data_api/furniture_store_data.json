@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Modern Sofa",
-    "url": "https://i.pinimg.com/564x/7e/29/5d/7e295da70e84110ad6c2b1dd289abc7f.jpg",
+    "url": "https://plus.unsplash.com/premium_photo-1683140425081-14c44089acd0?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "color": "Gray",
     "category": "Sofa",
     "style": "Modern",
@@ -13,7 +13,7 @@
   {
     "id": 2,
     "name": "Classic Wooden Chair",
-    "url": "https://media.istockphoto.com/id/1329937916/photo/scandinavian-domestic-dining-room-interior.jpg?s=612x612&w=0&k=20&c=jblput4MEg7QLUCIffJguBXIg1qYHXrpowBoLuiUasM=",
+    "url": "https://plus.unsplash.com/premium_photo-1681558402395-c2ef667e77dd?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "color": "Brown",
     "category": "Dining Room",
     "style": "Classic",
@@ -24,7 +24,7 @@
   {
     "id": 3,
     "name": "Minimalist Coffee Table",
-    "url": "https://media.istockphoto.com/id/457982639/photo/coffee-table-in-modern-living-room.jpg?s=1024x1024&w=is&k=20&c=hVyIo6hTsIiFveb2_KIMAC3CIDKShJz--eZg24cTmQY=",
+    "url": "https://target.scene7.com/is/image/Target/GUEST_44e8a9fa-8c10-465b-a1c7-0a1028816e15?wid=1200&hei=1200&qlt=80&fmt=webp",
     "color": "White",
     "category": "Living Room",
     "style": "Minimalist",
@@ -34,8 +34,8 @@
   },
   {
     "id": 4,
-    "name": "Paris model round corner sofa in a variety of fabrics and colors",
-    "url": "https://i.pinimg.com/564x/27/3f/ec/273fec1924367350e621e0919cd504cb.jpg",
+    "name": "Minimalisti sofa  ",
+    "url": "https://www.bodema.it/media/catalog/product/cache/4/image/9df78eab33525d08d6e5fb8d27136e95/b/o/bodema-anyway-01.jpg",
     "color": "White",
     "category": "sofa",
     "style": "Minimalisti",
@@ -46,7 +46,7 @@
   {
     "id": 5,
     "name": "Contemporary Office Desk",
-    "url": "https://media.istockphoto.com/id/1257975650/photo/modern-home-office-interior.jpg?s=1024x1024&w=is&k=20&c=gOotJ4-lU6pvOMoxxY_ujYdp_y2-KvYmmSNW1PEpQG0=",
+    "url": "https://target.scene7.com/is/image/Target/GUEST_d00ec118-53af-4783-94b9-5ebd7379676a?wid=1000&hei=1000&qlt=80&fmt=webp",
     "color": "Black",
     "category": "Office",
     "style": "Contemporary",
@@ -199,8 +199,8 @@
   },
   {
     "id": 20,
-    "name": "Modern bar chairs",
-    "url": "https://i.pinimg.com/564x/b2/0b/e4/b20be4313962222fa2dab1a880960d82.jpg",
+    "name": "Modern   chairs",
+    "url": "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?q=80&w=1818&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "color": "nude",
     "category": "bar stools",
     "style": "Modern",
