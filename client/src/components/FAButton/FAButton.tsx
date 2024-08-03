@@ -1,17 +1,17 @@
 import React from 'react';
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaGithub } from 'react-icons/fa';
 
-const WhatsappButton: React.FC = () => {
+const FAButton: React.FC = () => {
   return (
     <a
-      href="https://api.whatsapp.com/send?phone=9720584055147&text=faceVibe"
+      href="https://github.com/TairMa23/FaceVibe"
       target="_blank"
       rel="noopener noreferrer"
       style={{
         position: 'fixed',
         bottom: '20px',
         right: '20px',
-        backgroundColor: '#25D366',
+        backgroundColor: 'black',
         color: 'white',
         borderRadius: '50%',
         padding: '15px',
@@ -19,9 +19,9 @@ const WhatsappButton: React.FC = () => {
         zIndex: 1000,
       }}
     >
-      <FaWhatsapp size={30} />
+      <FaGithub size={25} />
     </a>
   );
 };
 
-export default WhatsappButton;
+export default FAButton;

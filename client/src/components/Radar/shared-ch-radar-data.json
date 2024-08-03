@@ -1,0 +1,13 @@
+[
+    { "name": "JP Morgan", "pre": 116  },
+    { "name": "HSBC", "pre": 165 },
+    { "name": "Credit Suisse", "pre": 215  },
+    { "name": "Goldman Sachs", "pre": 75  },
+    { "name": "Morgan Stanley", "pre": 100 },
+    { "name": "Societe Generale", "pre": 49 },
+    { "name": "UBS", "pre": 80  },
+    { "name": "BNP Paribas", "pre": 116  },
+    { "name": "Unicredit", "pre": 108 }
+    
+  ]
+  
