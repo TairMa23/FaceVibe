@@ -6,26 +6,33 @@ import Home from "./pages/Home/Home";
 import Contact from "./pages/Contact/Contact";
 import Feedback from "./pages/Feedback/Feedback";
 import PreferenceGallery from "./pages/PreferenceGallery/PreferenceGallery";
+<<<<<<< HEAD
 import FAButton from "./components/FAButton/FAButton";  
+=======
+import WhatsappButton from "./components/WhatsappButton/WhatsappButton";
+
+>>>>>>> e6a9e4a09979a0a7172943bcf036f15d85b8ac03
 import { useEmotionStore } from "./store/useEmotionStore";
 
 function App() {
-  const { loadFaceCascade, faceCascadeLoaded, initSocket, disconnectSocket } =
+  const { loadDetector, detectorLoaded, initSocket, disconnectSocket } =
     useEmotionStore();
 
   useEffect(() => {
-    loadFaceCascade();
+    loadDetector();
     initSocket();
 
     return () => {
       disconnectSocket();
     };
-  }, [loadFaceCascade, initSocket, disconnectSocket]);
-  if (!faceCascadeLoaded) {
-    console.log("Loading face cascade classifier...");
+  }, [loadDetector, initSocket, disconnectSocket]);
+
+  if (!detectorLoaded) {
+    console.log("Loading FER detector...");
   } else {
-    console.log("Face cascade classifier loaded successfully");
+    console.log("FER detector loaded successfully");
   }
+
   return (
     <>
       <div>
