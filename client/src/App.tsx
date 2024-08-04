@@ -9,7 +9,7 @@ import PreferenceGallery from "./pages/PreferenceGallery/PreferenceGallery";
 import FAButton from "./components/FAButton/FAButton";  
 import { useEmotionStore } from "./store/useEmotionStore";
 
-unction App() {
+function App() {
   const { loadDetector, detectorLoaded, initSocket, disconnectSocket } =
     useEmotionStore();
 
