@@ -6,15 +6,10 @@ import Home from "./pages/Home/Home";
 import Contact from "./pages/Contact/Contact";
 import Feedback from "./pages/Feedback/Feedback";
 import PreferenceGallery from "./pages/PreferenceGallery/PreferenceGallery";
-<<<<<<< HEAD
 import FAButton from "./components/FAButton/FAButton";  
-=======
-import WhatsappButton from "./components/WhatsappButton/WhatsappButton";
-
->>>>>>> e6a9e4a09979a0a7172943bcf036f15d85b8ac03
 import { useEmotionStore } from "./store/useEmotionStore";
 
-function App() {
+unction App() {
   const { loadDetector, detectorLoaded, initSocket, disconnectSocket } =
     useEmotionStore();
 
