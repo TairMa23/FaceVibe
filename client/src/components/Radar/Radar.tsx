@@ -41,7 +41,7 @@ const radarData = {
 
 const Radar: React.FC = () => (
   <div>
-    <h2>Market Value of Major Banks /bln/</h2>
+    <h2>Market Value of Major Banks  </h2>
     <RadarChart data={radarData}  />
   </div>
 );
