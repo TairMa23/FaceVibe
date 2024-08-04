@@ -1,4 +1,5 @@
 import { useRunningStore } from "../../store/useStore";
+import Button from "../Button/Button";
 
 function StartButton() {
   const running = useRunningStore((state) => state.running);
@@ -8,16 +9,15 @@ function StartButton() {
   };
 
   return (
-    <div className="d-grid gap-2 col-6 mx-auto">
-      <button
-        className={`start-button ${
-          running ? "stop" : "start"
-        } bg-my-pink px-6 py-3 rounded-sm text-white fnt font-semibold`}
-        type="button"
+    <div className="container mx-auto flex flex-col md:flex-row items-center p-0 ">
+    <div className="mx-auto px-6 py-0">
+      <Button
+        link="#"
+        className={`start-button ${running ? "stop" : "start"} bg-my-pink px-6 py-3 rounded-sm text-white fnt font-semibold`}
+        title={running ? "Stop" : "Start"}
         onClick={handleClick}
-      >
-        {running ? "Stop" : "Start"}
-      </button>
+      />
+    </div>
     </div>
   );
 }

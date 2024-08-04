@@ -15,9 +15,11 @@ function PreferenceGallery() {
     <>
        <HeaderBar />
        <Header />
-       <div className="card">
+       <div className="flex items-center justify-center min-h-screen">
+       <div className="card w-full sm:w-100 md:w-100 lg:w-1/2 xl:w-1/2 ">
         {images.length > 0 ? <CarouselPic /> : <p>Loading images...</p>}
         <DataFetching />
+        </div>
         </div>
       <div>
         <StartButton />

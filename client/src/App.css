@@ -73,16 +73,39 @@ body {
   margin: 1rem;
   padding: 2em;
   transition: box-shadow 0.3s;
+
 }
+
+@media (min-width: 640px) {
+  .card {
+    width: 40rem; /* sm */
+    height: 35rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .card {
+    width:  40rem; /* md */
+    height: 35rem; /* גובה קבוע למסכים בינוניים ומעלה */
+  }
+}
+
+@media (min-width: 1024px) {
+  .card {
+    width:  40rem; /* lg */
+    height:35rem; 
+  }
+}
+
 
 .card:hover {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 .carousel-item img {
-  max-height: 500px;
-  object-fit: cover;
   width: 100%;
+  height: 450px;
+  object-fit: cover;
   border-radius: 0.5rem;
   transition: transform 0.3s;
 }
@@ -91,24 +114,8 @@ body {
   transform: scale(1.05);
 }
 
-.start-button {
-  background-color: #fb2e86; /* צבע הרקע המקורי של bg-my-pink */
-  padding: 0.75rem 1.5rem; /* px-6 py-3 */
-  border-radius: 0.125rem; /* rounded-sm */
-  color: white; /* text-white */
-  font-family: "Josefin Sans", sans-serif; /* fnt */
-  font-weight: 600; /* font-semibold */
-  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
 
-.start-button.start {
-  background-color: #FB2E86; /* צבע לכפתור "התחל" */
-}
 
-.start-button.stop {
-  background-color: #FB2E86; /* צבע לכפתור "עצור" */
-}
 
 .start-button:hover {
   transform: scale(1.05);
