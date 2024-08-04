@@ -21,7 +21,7 @@ const Hero = () => {
           <Button
             className="bg-my-pink px-6 py-3 rounded-sm text-white fnt font-semibold"
             title="Lets Start"
-            link="/Feedback"
+            link="/PreferenceGallery"
           />
         </div>
         <img
