@@ -1,13 +1,10 @@
 [
-    { "name": "JP Morgan", "pre": 116  },
-    { "name": "HSBC", "pre": 165 },
-    { "name": "Credit Suisse", "pre": 215  },
-    { "name": "Goldman Sachs", "pre": 75  },
-    { "name": "Morgan Stanley", "pre": 100 },
-    { "name": "Societe Generale", "pre": 49 },
-    { "name": "UBS", "pre": 80  },
-    { "name": "BNP Paribas", "pre": 116  },
-    { "name": "Unicredit", "pre": 108 }
-    
-  ]
+    { "name": "Bohemian", "pre":  16  },
+    { "name": "minimalistic", "pre":  65 },
+    { "name": "Industrial", "pre": 21  },
+    { "name": "Rustic", "pre": 75  },
+    { "name": "Vintage", "pre": 100 },
+    { "name": "Classic", "pre": 49 },
+    { "name": "Modern", "pre": 80  }
+]
   

@@ -91,21 +91,21 @@
   },
   {
     "id": 10,
-    "name": "Country living room",
+    "name": "Rustic living room",
     "url": "https://img.freepik.com/premium-photo/rustic-living-room-with-wood-walls-white-sofa-pillows-blanket-floor-lamp_971991-22175.jpg?w=900",
     "color": "Brown ,white",
     "category": "living room",
-    "style": "Country",
+    "style": "Rustic",
     "dimensions": "5376x3584px / JPG",
     "material": ""
   },
   {
     "id": 11,
     "name": "Rustic Kitchen",
-    "url": "https://img.freepik.com/premium-photo/rustic-kitchen-farmhouse-interior-wooden-cabinets-reclaimed-dining-table-metal-bar-stools-vintage-pendant-lights-brick-backsplash-exposed-wooden-beams-ceiling-large-window-view-countryside_124463-33097.jpg?w=900",
+    "url": "https://img.freepik.com/premium-photo/rustic-kitchen-farmhouse-interior-wooden-cabinets-reclaimed-dining-table-metal-bar-stools-vintage-pendant-lights-brick-backsplash-exposed-wooden-beams-ceiling-large-window-view-Rusticside_124463-33097.jpg?w=900",
     "color": "Brown ,white",
     "category": "Kitchen",
-    "style": "Country",
+    "style": "Rustic",
     "dimensions": "5376x3584px / JPG",
     "material": ""
   },
@@ -115,7 +115,7 @@
     "url": "https://img.freepik.com/free-photo/photorealistic-wooden-house-interior-with-timber-decor-furnishings_23-2151263545.jpg?t=st=1722804196~exp=1722807796~hmac=a81897e931f382009336686d514098b97413c8f8b1cfa9a7c2a2d9477191099e&w=900",
     "color": "white , wood",
     "category": "bedroom",
-    "style": "Country",
+    "style": "Rustic",
     "dimensions": " 5696x3328px / JPG",
     "material": ""
   },
