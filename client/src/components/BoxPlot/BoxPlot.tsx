@@ -8,6 +8,7 @@ import {
   LineElement,
   Tooltip,
   Legend,
+  ChartOptions,
 } from 'chart.js';
 import { Chart as ChartJSComponent } from 'react-chartjs-2';
 import boxPlotData from './shared-ch-box-plot-data.json';
@@ -17,12 +18,9 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineEleme
 
 const processData = (data: BoxPlotData[]) => {
   return data.map((item) => ({
-    x: item.year,
+    x: item.Image,
     y: [
       item.lower,
-      item.q1,
-      item.median,
-      item.q3,
       item.upper,
     ],
   }));
@@ -31,10 +29,10 @@ const processData = (data: BoxPlotData[]) => {
 const data = boxPlotData as BoxPlotData[];
 
 const chartData = {
-  labels: data.map((item) => item.year),
+  labels: data.map((item) => item.Image),
   datasets: [
     {
-      label: 'Monthly Mean Temperatures (°F)',
+      label: 'Time',
       data: processData(data),
       backgroundColor: 'rgba(75, 192, 192, 0.2)',
       borderColor: 'rgba(75, 192, 192, 1)',
@@ -43,13 +41,13 @@ const chartData = {
   ],
 };
 
-const chartOptions = {
+const chartOptions: ChartOptions<'bar'> = {
   plugins: {
     legend: {
       display: true,
     },
     tooltip: {
-      mode: 'index' as const,
+      mode: 'index',
       intersect: false,
     },
   },
@@ -58,21 +56,43 @@ const chartOptions = {
     x: {
       title: {
         display: true,
-        text: 'Year',
+        text: 'Image',
+        font: {
+          size: 16, // גודל הכתב של כותרת ציר ה-X
+        },
+      },
+      ticks: {
+        font: {
+          size: 14, // גודל הכתב של המספרים בציר ה-X
+        },
       },
     },
     y: {
       title: {
         display: true,
-        text: 'Temperature (°F)',
+        text: 'Time (seconds)',
+        font: {
+          size: 16, // גודל הכתב של כותרת ציר ה-Y
+        },
+      },
+      min: 0,
+      max: 120,
+      ticks: {
+        stepSize: 5,
+        callback: function(value) {
+          return value;
+        },
+        font: {
+          size: 14, // גודל הכתב של המספרים בציר ה-Y
+        },
       },
     },
   },
 };
 
 const BoxPlot: React.FC = () => (
-  <div>
-    <h2>Monthly Mean Temperatures (°F)</h2>
+  <div style={{ width: '700px', height: '700px' }}> {/* שינוי רוחב וגובה המיכל */}
+    <h2>Image dwell time</h2>
     <ChartJSComponent type="bar" data={chartData} options={chartOptions} />
   </div>
 );
