@@ -31,8 +31,9 @@ def load_detector():
 @socketio.on('image')
 def handle_image(data):
     try:
-        # Extract currentImageId
+        # Extract currentImageId and imageStyle
         current_image_id = data.get('currentImageId')
+        image_style = data.get('currentImageStyle')
 
         # Decode base64 image
         image_data = base64.b64decode(data['imageDataURL'].split(',')[1])
@@ -54,12 +55,12 @@ def handle_image(data):
             emotion = max(emotions, key=emotions.get)
             score = emotions[emotion]
 
-            # Add emotion to analyzer
-            emotion_analyzer.add_emotion(current_image_id, emotion)
-            print(f"Image ID: {current_image_id}, Detected emotion: {emotion}, Score: {score:.2f}")
+            # Add emotion and style to analyzer
+            emotion_analyzer.add_emotion(current_image_id, emotion, image_style)
+            print(f"Image ID: {current_image_id}, Detected emotion: {emotion}, Score: {score:.2f}, Style: {image_style}")
 
             # Emit result
-            emit('emotion', {'emotion': emotion, 'score': score, 'currentImageId': current_image_id})
+            emit('emotion', {'emotion': emotion, 'score': score, 'currentImageId': current_image_id, 'currentImageStyle': image_style})
 
     except Exception as e:
         print(f"Error processing image: {e}")

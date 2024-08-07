@@ -12,7 +12,8 @@ interface EmotionState {
   disconnectSocket: () => void;
   sendImageToServer: (
     imageDataURL: string,
-    currentImageId: string | null
+    imageId: string | null,
+    imageStyle: string | null
   ) => void;
   setEmotion: (emotion: string, score: number) => void;
 }
@@ -48,10 +49,18 @@ export const useEmotionStore = create<EmotionState>((set, get) => ({
       set({ socket: null });
     }
   },
-  sendImageToServer: (imageDataURL: string, currentImageId: string | null) => {
+  sendImageToServer: (
+    imageDataURL: string,
+    imageId: string | null,
+    imageStyle: string | null
+  ) => {
     const { socket } = get();
     if (socket) {
-      socket.emit("image", { imageDataURL, currentImageId });
+      socket.emit("image", {
+        imageDataURL,
+        currentImageId: imageId,
+        currentImageStyle: imageStyle,
+      });
     }
   },
   setEmotion: (emotion: string, score: number) => set({ emotion, score }),
