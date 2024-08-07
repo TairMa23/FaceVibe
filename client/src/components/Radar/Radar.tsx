@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useMemo } from "react";
 import { Radar as RadarChart } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -36,51 +36,64 @@ const customTexts: { [key: string]: string } = {
 const Radar: React.FC = () => {
   const stylePercentages = useEmotionStore((state) => state.stylePercentages);
 
-  const labels = Object.keys(stylePercentages);
-  const data = Object.values(stylePercentages);
-  const radarData = {
-    labels,
-    datasets: [
-      {
-        label: "Styles",
-        data,
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        borderColor: "rgba(255, 99, 132, 1)",
-        borderWidth: 1,
-      },
-    ],
-  };
-  const radarOptions = {
-    scales: {
-      r: {
-        min: 0,
-        max: 100,
-        ticks: {
-          stepSize: 10,
+  const radarData = useMemo(() => {
+    const labels = Object.keys(stylePercentages);
+    const data = Object.values(stylePercentages);
+    return {
+      labels,
+      datasets: [
+        {
+          label: "Styles",
+          data,
+          backgroundColor: "rgba(255, 99, 132, 0.2)",
+          borderColor: "rgba(255, 99, 132, 1)",
+          borderWidth: 1,
         },
-        pointLabels: {
-          font: {
-            size: 16, // Adjust the font size as needed
+      ],
+    };
+  }, [stylePercentages]);
+
+  const radarOptions = useMemo(
+    () => ({
+      scales: {
+        r: {
+          min: 0,
+          max: 100,
+          ticks: {
+            stepSize: 10,
+          },
+          pointLabels: {
+            font: {
+              size: 16,
+            },
           },
         },
       },
-    },
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: (context: any) => {
-            const label = context.label || "";
-            return (
-              customTexts[label] || `No description available for ${label}`
-            );
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: (context: any) => {
+              const label = context.label || "";
+              const value = context.raw.toFixed(2);
+              return `${label}: ${value}%\n${
+                customTexts[label] || `No description available for ${label}`
+              }`;
+            },
           },
         },
       },
-    },
-  };
+    }),
+    []
+  );
+
+  if (!stylePercentages || Object.keys(stylePercentages).length === 0) {
+    return <div>No style data available.</div>;
+  }
+
   return (
     <div>
       <h2>Design Styles Analysis</h2>
+      <p>Based on {Object.keys(stylePercentages).length} different styles</p>
       <RadarChart data={radarData} options={radarOptions} />
     </div>
   );

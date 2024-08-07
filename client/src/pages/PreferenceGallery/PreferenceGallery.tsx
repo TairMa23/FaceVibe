@@ -13,9 +13,9 @@ import { useNavigate } from "react-router-dom";
 function PreferenceGallery() {
   const running = useRunningStore((state) => state.running);
   const images = useImageStore((state) => state.images);
-  const calculateStyleScores = useEmotionStore(
-    (state) => state.calculateStyleScores
-  );
+  const { calculateStyleScores } = useEmotionStore((state) => ({
+    calculateStyleScores: state.calculateStyleScores,
+  }));
   const navigate = useNavigate();
 
   const handleFinishClick = async () => {
