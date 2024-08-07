@@ -4,13 +4,14 @@ class EmotionAnalyzer:
     def __init__(self):
         self.emotion_data = defaultdict(lambda: defaultdict(int))
         self.style_emotion_data = defaultdict(lambda: defaultdict(int))
+        self.total_emotions = defaultdict(int)
 
     def add_emotion(self, image_id, emotion, style):
         if image_id is not None:
             self.emotion_data[image_id][emotion] += 1
+            self.total_emotions[emotion] += 1
             if style:
                 self.style_emotion_data[style][emotion] += 1
-
     def get_emotion_summary(self, image_id):
         return dict(self.emotion_data[image_id]) if image_id is not None else {}
     
@@ -53,15 +54,15 @@ class EmotionAnalyzer:
                 score = 0
                 for emotion, count in emotions.items():
                     if emotion in positive_emotions:
-                        score += (count * 2)
+                        score += (count * 10)
                     elif emotion in neutral_emotions:
-                        score += 0
+                        score += 3
                     elif emotion in negative_emotions:
-                        score += (count * -1)
+                        score += (count * 1)
 
                 style_scores[style] = score
 
-                if score > 0:
+                if score >= 0:
                     positive_total += score
 
             # Calculate percentage for each positive style
@@ -71,3 +72,14 @@ class EmotionAnalyzer:
                     style_percentages[style] = (score / positive_total) * 100
 
             return style_scores, style_percentages
+    def calculate_emotion_percentages(self):
+        total_count = sum(self.total_emotions.values())
+        emotion_percentages = {}
+        
+        for emotion, count in self.total_emotions.items():
+            if total_count > 0:
+                emotion_percentages[emotion] = (count / total_count) * 100
+            else:
+                emotion_percentages[emotion] = 0
+        
+        return emotion_percentages    

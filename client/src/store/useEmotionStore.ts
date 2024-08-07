@@ -10,6 +10,7 @@ interface EmotionState {
   score: number;
   styleScores: Record<string, number>;
   stylePercentages: Record<string, number>;
+  emotionPercentages: Record<string, number>; // הוספת אחוזי הרגשות לממשק
   loadDetector: () => Promise<void>;
   initSocket: () => void;
   disconnectSocket: () => void;
@@ -18,16 +19,16 @@ interface EmotionState {
     imageId: string | null,
     imageStyle: string | null
   ) => void;
-  saveState: () => void; // הוספת הפונקציה החדשה לממשק
+  saveState: () => void;
   setEmotion: (emotion: string, score: number) => void;
-  calculateStyleScores: () => void; // New function
+  calculateStyleScores: () => void;
+  calculateEmotionPercentages: () => void; // פונקציה חדשה
 }
-// שמירת נתונים
+
 const saveState = (state: Partial<EmotionState>) => {
   localStorage.setItem("emotionState", JSON.stringify(state));
 };
 
-// טעינת נתונים
 const loadState = (): Partial<EmotionState> => {
   try {
     const savedState = localStorage.getItem("emotionState");
@@ -45,6 +46,7 @@ export const useEmotionStore = create<EmotionState>((set, get) => ({
   score: 0,
   styleScores: {},
   stylePercentages: {},
+  emotionPercentages: {}, // אחוזי הרגשות כברירת מחדל
   loadDetector: async () => {
     try {
       const response = await axiosInstance.get("/emotion/load_detector");
@@ -84,7 +86,8 @@ export const useEmotionStore = create<EmotionState>((set, get) => ({
     }
   },
   setEmotion: (emotion: string, score: number) => {
-    set({ emotion, score }), get().saveState();
+    set({ emotion, score });
+    get().saveState();
   },
   calculateStyleScores: async () => {
     try {
@@ -102,7 +105,19 @@ export const useEmotionStore = create<EmotionState>((set, get) => ({
       console.error("Error fetching style scores:", error);
     }
   },
-  // הוספת פונקציה לשמירת מצב
+  calculateEmotionPercentages: async () => {
+    try {
+      const response = await axiosInstance.get(
+        "/emotion/calculate_emotion_percentages"
+      );
+      const data = response.data;
+      console.log("Emotion percentages:", data);
+      set({ emotionPercentages: data.emotion_percentages });
+      get().saveState(); // קריאה לשמירת המצב לאחר העדכון
+    } catch (error) {
+      console.error("Error fetching emotion percentages:", error);
+    }
+  },
   saveState: () => {
     const state = get();
     saveState({
@@ -110,9 +125,8 @@ export const useEmotionStore = create<EmotionState>((set, get) => ({
       score: state.score,
       styleScores: state.styleScores,
       stylePercentages: state.stylePercentages,
+      emotionPercentages: state.emotionPercentages, // שמירת אחוזי הרגשות
     });
   },
-
-  // טעינת מצב בעת אתחול
   ...loadState(),
 }));

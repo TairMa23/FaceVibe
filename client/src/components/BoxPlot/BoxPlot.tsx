@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,92 +9,102 @@ import {
   Tooltip,
   Legend,
   ChartOptions,
-} from 'chart.js';
-import { Chart as ChartJSComponent } from 'react-chartjs-2';
-import boxPlotData from './shared-ch-box-plot-data.json';
-import { BoxPlotData } from './types';
+} from "chart.js";
+import { Chart as ChartJSComponent } from "react-chartjs-2";
+import { useEmotionStore } from "../../store/useEmotionStore";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend
+);
 
-const processData = (data: BoxPlotData[]) => {
-  return data.map((item) => ({
-    x: item.Image,
-    y: [
-      item.lower,
-      item.upper,
-    ],
+const processData = (data: { [key: string]: number }) => {
+  return Object.keys(data).map((emotion) => ({
+    x: emotion,
+    y: data[emotion],
   }));
 };
 
-const data = boxPlotData as BoxPlotData[];
+const BoxPlot: React.FC = () => {
+  const { emotionPercentages, calculateEmotionPercentages } = useEmotionStore();
 
-const chartData = {
-  labels: data.map((item) => item.Image),
-  datasets: [
-    {
-      label: 'Time',
-      data: processData(data),
-      backgroundColor: 'rgba(75, 192, 192, 0.2)',
-      borderColor: 'rgba(75, 192, 192, 1)',
-      borderWidth: 1,
-    },
-  ],
-};
+  React.useEffect(() => {
+    calculateEmotionPercentages();
+  }, [calculateEmotionPercentages]);
 
-const chartOptions: ChartOptions<'bar'> = {
-  plugins: {
-    legend: {
-      display: true,
-    },
-    tooltip: {
-      mode: 'index',
-      intersect: false,
-    },
-  },
-  responsive: true,
-  scales: {
-    x: {
-      title: {
+  const chartData = {
+    labels: Object.keys(emotionPercentages),
+    chartData: [
+      {
+        label: "Emotion Percentages ",
+        data: processData(emotionPercentages),
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const chartOptions: ChartOptions<"bar"> = {
+    plugins: {
+      legend: {
         display: true,
-        text: 'Image',
-        font: {
-          size: 16, // גודל הכתב של כותרת ציר ה-X
+      },
+      tooltip: {
+        mode: "index",
+        intersect: false,
+      },
+    },
+    responsive: true,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Emotion",
+          font: {
+            size: 16,
+          },
+        },
+        ticks: {
+          font: {
+            size: 14,
+          },
         },
       },
-      ticks: {
-        font: {
-          size: 14, // גודל הכתב של המספרים בציר ה-X
+      y: {
+        title: {
+          display: true,
+          text: "Percentage (%)",
+          font: {
+            size: 16,
+          },
+        },
+        min: 0,
+        max: 100,
+        ticks: {
+          stepSize: 10,
+          callback: function (value) {
+            return value + "%";
+          },
+          font: {
+            size: 14,
+          },
         },
       },
     },
-    y: {
-      title: {
-        display: true,
-        text: 'Time (seconds)',
-        font: {
-          size: 16, // גודל הכתב של כותרת ציר ה-Y
-        },
-      },
-      min: 0,
-      max: 120,
-      ticks: {
-        stepSize: 5,
-        callback: function(value) {
-          return value;
-        },
-        font: {
-          size: 14, // גודל הכתב של המספרים בציר ה-Y
-        },
-      },
-    },
-  },
-};
+  };
 
-const BoxPlot: React.FC = () => (
-  <div style={{ width: '700px', height: '700px' }}> {/* שינוי רוחב וגובה המיכל */}
-    <h2>Image dwell time</h2>
-    <ChartJSComponent type="bar" data={chartData} options={chartOptions} />
-  </div>
-);
+  return (
+    <div style={{ width: "700px", height: "700px" }}>
+      <h2>Emotion Percentages</h2>
+      <ChartJSComponent type="bar" data={chartData} options={chartOptions} />
+    </div>
+  );
+};
 
 export default BoxPlot;

@@ -84,3 +84,9 @@ def calculate_style_scores():
         'style_scores': style_scores,
         'style_percentages': style_percentages
     })
+@emotion_blueprint.route('/calculate_emotion_percentages', methods=['GET'])
+def calculate_emotion_percentages():
+    emotion_percentages = emotion_analyzer.calculate_emotion_percentages()
+    return jsonify({
+        'emotion_percentages': emotion_percentages
+    })
