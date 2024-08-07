@@ -39,7 +39,7 @@ const BoxPlot: React.FC = () => {
 
   const chartData = {
     labels: Object.keys(emotionPercentages),
-    chartData: [
+    datasets: [
       {
         label: "Emotion Percentages ",
         data: processData(emotionPercentages),
