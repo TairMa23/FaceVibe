@@ -8,6 +8,8 @@ const DataFetching: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:8080/api/furniture");
+        console.log("sucsses load api/furniture");
+
         const imageItems = response.data.furniture.map((item: ImageItem) => ({
           id: item.id,
           name: item.name,
