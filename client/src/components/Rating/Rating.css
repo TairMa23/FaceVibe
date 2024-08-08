@@ -1,0 +1,62 @@
+.emoji-rating-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px; /* Space between the question and the emojis */
+  position: relative; /* Ensure emoji-description is positioned relative to emoji-rating-container */
+}
+
+.question {
+  font-size: 25px; /* Size of the question text */
+  font-weight: bold;
+  margin-bottom: 20px; /* Space between the question and the emojis */
+  text-align: center; /* Center the question text */
+  color: #8A8FB9;
+}
+
+.required {
+  color: red; /* Color for the required asterisk */
+  font-size: 18px; /* Size of the asterisk */
+  margin-left: 5px; /* Space between the question and the asterisk */
+}
+
+.emojis {
+  display: flex;
+  justify-content: center;
+  gap: 50px; /* Adjust the spacing between emojis */
+}
+
+.emoji-wrapper {
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  text-align: center; /* Center the text below the emoji */
+  position: relative; /* Ensure emoji-description is positioned relative to emoji-wrapper */
+}
+
+.emoji-wrapper:hover {
+  transform: scale(1.2); /* Increased scale for hover effect */
+}
+
+.emoji-wrapper.selected {
+  background-color: green;
+  padding: 5px; /* Adjust the padding to create a green circle around the emoji */
+}
+
+.emoji {
+  width: 70px; /* Increased size of the emojis */
+  height: 70px;
+}
+
+.emoji-description {
+  position: absolute; /* Position the description absolutely */
+  top: calc(100% + 5px); /* Place the description directly below the emoji */
+  left: 50%;
+  transform: translateX(-50%); /* Center the description horizontally */
+  font-size: 14px; /* Font size of the description */
+  white-space: nowrap; /* Prevent wrapping of the description text */
+  background-color: white; /* Background color for better visibility */
+  padding: 2px 5px; /* Padding around the description */
+  border-radius: 4px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for better readability */
+}
