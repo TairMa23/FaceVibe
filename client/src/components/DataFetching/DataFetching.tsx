@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { useImageStore } from "../../store/useStore";
+import { useImageStore, ImageItem } from "../../store/useStore";
 
 const DataFetching: React.FC = () => {
   const setImages = useImageStore((state) => state.setImages);
@@ -8,9 +8,17 @@ const DataFetching: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:8080/api/furniture");
-        const imageItems = response.data.furniture.map((item: any) => ({
-          id: item.id, // נניח שיש שדה id לכל פריט
+        console.log("sucsses load api/furniture");
+
+        const imageItems = response.data.furniture.map((item: ImageItem) => ({
+          id: item.id,
+          name: item.name,
           url: item.url,
+          color: item.color,
+          category: item.category,
+          style: item.style,
+          dimensions: item.dimensions,
+          material: item.material,
         }));
         setImages(imageItems);
       } catch (error) {

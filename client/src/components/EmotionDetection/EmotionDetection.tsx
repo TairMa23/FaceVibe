@@ -11,7 +11,7 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
   const streamRef = useRef<MediaStream | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const { currentImageId } = useImageStore();
+  const { currentImageId, currentImageStyle } = useImageStore();
   const { detectorLoaded, emotion, score, sendImageToServer } =
     useEmotionStore();
 
@@ -42,7 +42,11 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
                       canvas.height
                     );
                     const imageDataURL = canvas.toDataURL("image/jpeg");
-                    sendImageToServer(imageDataURL, currentImageId);
+                    sendImageToServer(
+                      imageDataURL,
+                      currentImageId,
+                      currentImageStyle
+                    );
                   }
                 }
               }, 1000); // Capture image every second
@@ -73,7 +77,13 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
         streamRef.current.getTracks().forEach((track) => track.stop());
       }
     };
-  }, [running, currentImageId, detectorLoaded, sendImageToServer]);
+  }, [
+    running,
+    currentImageId,
+    detectorLoaded,
+    sendImageToServer,
+    currentImageStyle,
+  ]);
 
   if (!detectorLoaded) {
     return <div>Loading emotion detection model...</div>;

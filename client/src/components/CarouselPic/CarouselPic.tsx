@@ -5,9 +5,13 @@ import { useImageStore } from "../../store/useStore";
 const CarouselPic: React.FC = () => {
   const images = useImageStore((state) => state.images);
   const setCurrentImageId = useImageStore((state) => state.setCurrentImageId);
+  const setCurrentImageStyle = useImageStore(
+    (state) => state.setCurrentImageStyle
+  );
   const handleSlideChange = (selectedIndex: number) => {
     if (images[selectedIndex]) {
       setCurrentImageId(images[selectedIndex].id);
+      setCurrentImageStyle(images[selectedIndex].style);
     }
   };
   return (
