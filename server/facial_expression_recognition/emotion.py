@@ -54,11 +54,10 @@ def handle_image(data):
             # Get the dominant emotion
             emotion = max(emotions, key=emotions.get)
             score = emotions[emotion]
-
             # Add emotion and style to analyzer
-            emotion_analyzer.add_emotion(current_image_id, emotion, image_style)
-            print(f"Image ID: {current_image_id}, Detected emotion: {emotion}, Score: {score:.2f}, Style: {image_style}")
-            print(emotion_analyzer.calculate_style_scores())
+            emotion_analyzer.add_emotion(current_image_id, emotion, image_style,score)
+            print(emotion_analyzer.get_all_data())
+
             # Emit result
             emit('emotion', {'emotion': emotion, 'score': score, 'currentImageId': current_image_id, 'currentImageStyle': image_style})
 
@@ -67,10 +66,6 @@ def handle_image(data):
         # Emit error message with currentImageId
         emit('emotion', {'error': str(e), 'currentImageId': current_image_id})
 
-@emotion_blueprint.route('/most_liked_images', methods=['GET'])
-def get_most_liked_images():
-    sorted_images = emotion_analyzer.sort_images_by_happiness()
-    return jsonify(sorted_images)
 
 # Optional: add a route to get all emotion data
 @emotion_blueprint.route('/emotion_data', methods=['GET'])

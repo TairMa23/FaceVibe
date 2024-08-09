@@ -3,75 +3,83 @@ from collections import defaultdict
 class EmotionAnalyzer:
     def __init__(self):
         self.emotion_data = defaultdict(lambda: defaultdict(int))
-        self.style_emotion_data = defaultdict(lambda: defaultdict(int))
+        self.style_emotion_data = defaultdict(lambda: {'count': defaultdict(int), 'scores': defaultdict(float)})
         self.total_emotions = defaultdict(int)
+        self.emotion_type = {"positive_emotions":{'happy', 'surprise'},"negative_emotions":{'angry', 'disgust', 'fear', 'sad'},"neutral_emotions":{'neutral'}}
 
-    def add_emotion(self, image_id, emotion, style):
+    def add_emotion(self, image_id, emotion, style, score):
         if image_id is not None:
             self.emotion_data[image_id][emotion] += 1
             self.total_emotions[emotion] += 1
             if style:
-                self.style_emotion_data[style][emotion] += 1
-    def get_emotion_summary(self, image_id):
-        return dict(self.emotion_data[image_id]) if image_id is not None else {}
-    
+                current_count = self.style_emotion_data[style]['count'][emotion]
+                new_count = current_count + 1
+                self.style_emotion_data[style]['count'][emotion] = new_count
+                
+                # Update average score directly
+                current_avg = self.style_emotion_data[style]['scores'][emotion]
+                new_avg = (current_avg * current_count + score) / new_count
+                self.style_emotion_data[style]['scores'][emotion] = round(new_avg, 2)
+     
     def get_style_emotion_summary(self, style):
         if style:
-            return dict(self.style_emotion_data[style])
+            return {
+                'count': dict(self.style_emotion_data[style]['count']),
+                'scores': dict(self.style_emotion_data[style]['scores'])
+            }
         return {}
-    
-
     def get_all_data(self):
         return {
             'image_data': {k: dict(v) for k, v in self.emotion_data.items()},
-            'style_data': {k: dict(v) for k, v in self.style_emotion_data.items()}
-        }
-    def sort_images_by_happiness(self):
-
-        # מיון התמונות לפי כמות הפעמים שזוהתה שמחה
-        sorted_images = sorted(
-            self.emotion_data.items(),
-            key=lambda x: x[1].get('happy', 0),
-            reverse=True
-        )
-        return [
-            {
-                'image_id': image_id,
-                'happiness_count': emotions.get('happy', 0),
-                'emotions': dict(emotions)
+            'style_data': {
+                k: {
+                    'count': dict(v['count']),
+                    'scores': dict(v['scores'])
+                } for k, v in self.style_emotion_data.items()
             }
-            for image_id, emotions in sorted_images
-        ]
+        }
     def calculate_style_scores(self):
-            positive_emotions = {'happy', 'surprise'}
-            negative_emotions = {'angry', 'disgust', 'fear', 'sad'}
-            neutral_emotions = {'neutral'}
+        style_scores = defaultdict(float)
+        positive_total = 0
 
-            style_scores = defaultdict(int)
-            positive_total = 0
+        for style, emotions in self.style_emotion_data.items():
+            total_weighted_score = 0
+            positive_weighted_score = 0
 
-            for style, emotions in self.style_emotion_data.items():
-                score = 0
-                for emotion, count in emotions.items():
-                    if emotion in positive_emotions:
-                        score += (count * 10)
-                    elif emotion in neutral_emotions:
-                        score += 3
-                    elif emotion in negative_emotions:
-                        score += (count * 1)
+            for emotion, count in emotions['count'].items():
+                score = emotions['scores'][emotion]
+                if emotion in self.emotion_type['positive_emotions']:
+                    weight = 5
+                elif emotion in self.emotion_type['neutral_emotions']:
+                    weight = 3
+                elif emotion in self.emotion_type['negative_emotions']:
+                    weight = 1
+                else:
+                    continue
 
-                style_scores[style] = score
+                # Calculate the weighted score for this emotion
+                weighted_score = count * score * weight
+                total_weighted_score += weighted_score
 
-                if score >= 0:
-                    positive_total += score
+                if weight == 10 or weight == 3:  # Positive and neutral emotions
+                    positive_weighted_score += weighted_score
 
-            # Calculate percentage for each positive style
-            style_percentages = {}
-            for style, score in style_scores.items():
-                if score > 0:
-                    style_percentages[style] = (score / positive_total) * 100
+            # Calculate the percentage of positive and neutral emotions
+            style_scores[style] = positive_weighted_score / total_weighted_score * 100 if total_weighted_score > 0 else 0
 
-            return style_scores, style_percentages
+            # Accumulate positive scores for overall percentage calculation
+            if total_weighted_score > 0:
+                positive_total += positive_weighted_score
+
+        # Calculate percentage for each style
+        style_percentages = {}
+        for style, score in style_scores.items():
+            if positive_total > 0:
+                style_percentages[style] = (score / positive_total) * 100
+
+        return style_scores, style_percentages
+
+
     def calculate_emotion_percentages(self):
         total_count = sum(self.total_emotions.values())
         emotion_percentages = {}

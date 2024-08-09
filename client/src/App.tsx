@@ -6,7 +6,7 @@ import Home from "./pages/Home/Home";
 import Contact from "./pages/Contact/Contact";
 import Feedback from "./pages/Feedback/Feedback";
 import PreferenceGallery from "./pages/PreferenceGallery/PreferenceGallery";
-import FAButton from "./components/FAButton/FAButton";  
+import FAButton from "./components/FAButton/FAButton";
 import { useEmotionStore } from "./store/useEmotionStore";
 
 function App() {

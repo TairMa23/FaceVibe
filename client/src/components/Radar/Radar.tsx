@@ -34,7 +34,7 @@ const customTexts: { [key: string]: string } = {
 };
 
 const Radar: React.FC = () => {
-  const stylePercentages = useEmotionStore((state) => state.stylePercentages);
+  const stylePercentages = useEmotionStore((state) => state.styleScores);
 
   const radarData = useMemo(() => {
     const labels = Object.keys(stylePercentages);
