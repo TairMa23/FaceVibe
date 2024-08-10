@@ -20,6 +20,8 @@ detector = FER()
 def load_detector():
     global detector
     try:
+        # Create an instance of EmotionAnalyzer
+        emotion_analyzer = EmotionAnalyzer()
         if detector is not None:
             print('FER detector loaded successfully')
             return jsonify({"status": "success", "message": "FER detector loaded successfully"})
