@@ -56,7 +56,6 @@ def handle_image(data):
             score = emotions[emotion]
             # Add emotion and style to analyzer
             emotion_analyzer.add_emotion(current_image_id, emotion, image_style,score)
-            print(emotion_analyzer.get_all_data())
 
             # Emit result
             emit('emotion', {'emotion': emotion, 'score': score, 'currentImageId': current_image_id, 'currentImageStyle': image_style})
@@ -74,10 +73,9 @@ def get_emotion_data():
 
 @emotion_blueprint.route('/calculate_style_scores', methods=['GET'])
 def calculate_style_scores():
-    style_scores, style_percentages = emotion_analyzer.calculate_style_scores()
+    style_scores = emotion_analyzer.calculate_style_scores()
     return jsonify({
-        'style_scores': style_scores,
-        'style_percentages': style_percentages
+        'style_scores': style_scores
     })
 @emotion_blueprint.route('/calculate_emotion_percentages', methods=['GET'])
 def calculate_emotion_percentages():

@@ -41,6 +41,7 @@ class EmotionAnalyzer:
     def calculate_style_scores(self):
         style_scores = defaultdict(float)
         positive_total = 0
+        positive_or_neutral = False
 
         for style, emotions in self.style_emotion_data.items():
             total_weighted_score = 0
@@ -49,35 +50,32 @@ class EmotionAnalyzer:
             for emotion, count in emotions['count'].items():
                 score = emotions['scores'][emotion]
                 if emotion in self.emotion_type['positive_emotions']:
-                    weight = 5
-                elif emotion in self.emotion_type['neutral_emotions']:
-                    weight = 3
-                elif emotion in self.emotion_type['negative_emotions']:
+                    positive_or_neutral = True
                     weight = 1
+                elif emotion in self.emotion_type['neutral_emotions']:
+                    positive_or_neutral = True
+                    weight = 1
+                elif emotion in self.emotion_type['negative_emotions']:
+                    positive_or_neutral = False
+                    weight = score
                 else:
                     continue
 
                 # Calculate the weighted score for this emotion
-                weighted_score = count * score * weight
+                weighted_score = count * weight
                 total_weighted_score += weighted_score
 
-                if weight == 10 or weight == 3:  # Positive and neutral emotions
-                    positive_weighted_score += weighted_score
-
+                if positive_or_neutral == True:  # Positive and neutral emotions
+                    positive_weighted_score += (weighted_score * score)
+            
+            print(style)
+            print("positive_weighted_score: ",positive_weighted_score)
+            print('total_weighted_score: ', total_weighted_score)
             # Calculate the percentage of positive and neutral emotions
             style_scores[style] = positive_weighted_score / total_weighted_score * 100 if total_weighted_score > 0 else 0
-
-            # Accumulate positive scores for overall percentage calculation
-            if total_weighted_score > 0:
-                positive_total += positive_weighted_score
-
-        # Calculate percentage for each style
-        style_percentages = {}
-        for style, score in style_scores.items():
-            if positive_total > 0:
-                style_percentages[style] = (score / positive_total) * 100
-
-        return style_scores, style_percentages
+            print(style_scores[style])
+        print(self.get_all_data())
+        return style_scores
 
 
     def calculate_emotion_percentages(self):

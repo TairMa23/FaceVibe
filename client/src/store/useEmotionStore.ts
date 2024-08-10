@@ -98,7 +98,6 @@ export const useEmotionStore = create<EmotionState>((set, get) => ({
       console.log("Style scores:", data);
       set({
         styleScores: data.style_scores,
-        stylePercentages: data.style_percentages,
       });
       get().saveState(); // קריאה לשמירת המצב לאחר העדכון
     } catch (error) {
