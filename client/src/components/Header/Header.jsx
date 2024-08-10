@@ -1,14 +1,13 @@
 import React from "react";
 import Logo from "./Logo";
-import Menu from "./Menu";
 
-const Header = () => {
+const Header = ({ menu }) => {
   return (
     <div className="bg-white py-4">
       <div className="container mx-auto">
         <div className="flex items-center gap-20 justify-between">
           <Logo />
-          <Menu />
+          {menu} {/* כאן מופיעה הקומפוננטה שנשלחת כ-`prop` */}
         </div>
       </div>
     </div>

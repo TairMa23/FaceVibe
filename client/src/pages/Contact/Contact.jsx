@@ -3,6 +3,8 @@ import HeaderBar from "../../components/HeaderBar/HeaderBar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import ContactForm from "../../components/ContactForm/ContactForm";
+import Menu from "../../components/Header/Menu";
+
 
 const Contact = () => {
   useEffect(() => {
@@ -12,7 +14,7 @@ const Contact = () => {
   return (
     <div>
       <HeaderBar />
-      <Header />
+      <Header menu={<Menu />}/>
       <div className="bg-my-lightpink relative">
         <div className="container mx-auto flex flex-col-reverse md:flex-row justify-center py-16 pb-32 items-center">
           <ContactForm />

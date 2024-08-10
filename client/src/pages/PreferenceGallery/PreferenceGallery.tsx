@@ -9,6 +9,7 @@ import Button from "../../components/Button/Button";
 import { useImageStore, useRunningStore } from "../../store/useStore";
 import { useEmotionStore } from "../../store/useEmotionStore";
 import { useNavigate } from "react-router-dom";
+import Menu from "../../components/Header/Menu";
 
 function PreferenceGallery() {
   const running = useRunningStore((state) => state.running);
@@ -31,11 +32,13 @@ function PreferenceGallery() {
   return (
     <>
       <HeaderBar />
-      <Header />
+      <Header menu={<Menu />} />
+      <DataFetching />
       <div className="flex items-center justify-center min-h-screen">
         <div className="card w-full sm:w-100 md:w-100 lg:w-1/2 xl:w-1/2 ">
+         
           {images.length > 0 ? <CarouselPic /> : <p>Loading images...</p>}
-          <DataFetching />
+           
         </div>
       </div>
       <div>

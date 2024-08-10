@@ -5,7 +5,7 @@ import BoxPlot from "../../../components/BoxPlot/BoxPlot";
 const Result = () => {
   return (
     <div className="w-full py-6">
-      <div className="container mx-auto w-full grid grid-cols-1 md:grid-cols-2 justify-items-center items-center mt-10 gap-10">
+      <div className="container mx-auto w-full grid grid-cols-1 md:grid-cols-2 justify-items-center items-center mt-5 gap-10">
         <div className="w-full max-w-md mx-2 text-center">
           <Radar />
           <form className="flex items-center gap-8"></form>

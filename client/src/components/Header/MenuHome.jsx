@@ -10,14 +10,14 @@ const Menu = () => {
       text: "Home",
       url: "/",
     },
-    { 
-      text: "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0",
-      url: "/",
+    {
+      text: "About",
+      url: "/#UniqueSection",
     },
     {
-      text: "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0",
-      url: "/",
-    } 
+      text: "Contact",
+      url: "/#NewslaterSection",
+    },
   ];
 
   const mobileToggleClick = () => {
@@ -50,8 +50,8 @@ const Menu = () => {
           {menuContent.map((item, index) => {
             return (
               <li key={index} className="flex items-center">
-              <a href={item.url}>{item.text}</a>
-            </li>
+                <a href={item.url}>{item.text}</a>
+              </li>
             );
           })}
         </ul>

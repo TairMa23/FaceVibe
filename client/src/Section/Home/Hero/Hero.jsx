@@ -26,9 +26,9 @@ const Hero = () => {
           />
         </div>
         <img
-          src="/images/hero.png"
+          src="/images/emoji.gif"
           className="w-[600px] h-[500px] object-cover hidden lg:block"
-          alt=""
+          alt="Animated GIF"
         />
       </div>
     </div>
