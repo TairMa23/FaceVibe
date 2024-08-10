@@ -55,7 +55,7 @@ const CarouselPic: React.FC = () => {
         controls={false} // ביטול אפשרות למעבר ידני
         indicators={false} // ביטול מחווני שקופיות
         interval={null} // ביטול זמן המעבר האוטומטי
-        onSelect={handleSelect}
+        onSlide={handleSelect}
         pause={false} // הקרוסלה לא עוצרת כשהעכבר מעליה
       >
         {images.map((item) => (

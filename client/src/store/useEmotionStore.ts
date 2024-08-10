@@ -49,8 +49,10 @@ export const useEmotionStore = create<EmotionState>((set, get) => ({
   emotionPercentages: {}, // אחוזי הרגשות כברירת מחדל
   loadDetector: async () => {
     try {
+      console.log("Loading FER detector...");
       const response = await axiosInstance.get("/emotion/load_detector");
       if (response.data.status === "success") {
+        console.log("Success Load FER detector");
         set({ detectorLoaded: true });
       }
     } catch (error) {

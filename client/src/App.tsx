@@ -22,12 +22,6 @@ function App() {
     };
   }, [loadDetector, initSocket, disconnectSocket]);
 
-  if (!detectorLoaded) {
-    console.log("Loading FER detector...");
-  } else {
-    console.log("FER detector loaded successfully");
-  }
-
   return (
     <>
       <div>

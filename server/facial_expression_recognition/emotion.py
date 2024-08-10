@@ -58,7 +58,7 @@ def handle_image(data):
             score = emotions[emotion]
             # Add emotion and style to analyzer
             emotion_analyzer.add_emotion(current_image_id, emotion, image_style,score)
-
+            print(emotion_analyzer.get_all_data())
             # Emit result
             emit('emotion', {'emotion': emotion, 'score': score, 'currentImageId': current_image_id, 'currentImageStyle': image_style})
 
