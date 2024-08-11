@@ -35,6 +35,7 @@
     "react-router-dom": "^6.25.1",
     "socket.io-client": "^4.7.5",
     "swiper": "^11.1.9",
+    "use-sound": "^4.0.3",
     "zustand": "^4.5.4"
   },
   "devDependencies": {
