@@ -109,10 +109,12 @@ body {
   border-radius: 0.5rem;
   transition: transform 0.3s;
 }
- 
 
-
-
+.final-image {
+  height: 450px; /* אותו גובה כמו התמונות האחרות */
+  object-fit: cover; /* תבטיח שהתמונה תתאים לגבולות תוך שמירה על פרופורציות */
+  border-radius: 0.5rem; /* אם יש לך עיצוב דומה בתמונות אחרות */
+}
 
 .start-button:hover {
   transform: scale(1.05);

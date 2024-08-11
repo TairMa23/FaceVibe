@@ -48,7 +48,7 @@ const SoundButton: React.FC<SoundButtonProps> = ({ soundUrl, size = 30 }) => {
         backgroundColor: "transparent",
         border: "none",
         cursor: "pointer",
-        color: isPlaying ? "#F2F0FF" : "green",
+        color: isPlaying ? "#f7c2af" : "#afc3f2",
         fontSize: `${size}px`,
       }}
     >

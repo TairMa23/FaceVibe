@@ -12,17 +12,16 @@ const emojis: { src: string; description: string }[] = [
 interface RatingProps {
   question: string;
   isRequired?: boolean;
+  onChange?: (rating: number | null) => void; // Add this prop
 }
 
-const Rating: React.FC<RatingProps> = ({ question, isRequired = true }) => {
+const Rating: React.FC<RatingProps> = ({ question, isRequired = true, onChange }) => {
   const [selectedEmoji, setSelectedEmoji] = useState<number | null>(null);
 
   const handleSelect = (index: number) => {
-    if (selectedEmoji === index) {
-      setSelectedEmoji(null);
-    } else {
-      setSelectedEmoji(index);
-    }
+    const newSelectedEmoji = selectedEmoji === index ? null : index;
+    setSelectedEmoji(newSelectedEmoji);
+    onChange && onChange(newSelectedEmoji); // Call onChange when emoji is selected
   };
 
   return (

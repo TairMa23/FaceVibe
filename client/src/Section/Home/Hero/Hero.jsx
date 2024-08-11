@@ -9,9 +9,9 @@ const Hero = () => {
           <span className="font-bold text-lg text-my-pink">
             Best Furniture For Your Style....
           </span>
-          <h2 className="fnt font-bold text-6xl py-8">
+          <h2 className="fnt font-bold text-6xl py-8 text-my-Blue ">
             FACE VIBE <br />
-            <span className="text-3xl">Smart Recommendations</span>
+            <span className="text-3xl text-textBlue">Smart Recommendations</span>
           </h2>
           <p className="text-my-subText font-bold text-xl mb-8">
             Find the perfect fit for your space – Our advanced technology

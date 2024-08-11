@@ -14,13 +14,13 @@ const Discount = () => {
                     <div>
                         <h6 className='text-4xl text-my-pink fnt font-bold pt-4'>Uniquely Tailored to Enhance Your Experience</h6>
                         <ul className='grid grid-cols-1 md:grid-cols-2 mb-8 mt-6'>
-                            <li className='flex items-center text-[#B8B8DC] pb-2 text-xl'><IoCheckmark style={myIconStyle} size="28px" /> Solving the Cold Start Problem</li>
-                            <li className='flex items-center text-[#B8B8DC] pb-2 text-xl'><IoCheckmark style={myIconStyle} size="28px" /> Use of AI technology</li>
-                            <li className='flex items-center text-[#B8B8DC] pb-2 text-xl'><IoCheckmark style={myIconStyle} size="28px" /> User convenience</li>
-                            <li className='flex items-center text-[#B8B8DC] pb-2 text-xl'><IoCheckmark style={myIconStyle} size="28px" /> Real-Time Feedback</li>
-                            <li className='flex items-center text-[#B8B8DC] pb-2 text-xl'><IoCheckmark style={myIconStyle} size="28px" /> Personalized Recommendations</li>
-                            <li className='flex items-center text-[#B8B8DC] pb-2 text-xl'><IoCheckmark style={myIconStyle} size="28px" /> Cross-Platform Compatibility</li>
-                            <li className='flex items-center text-[#B8B8DC] pb-2 text-xl'><IoCheckmark style={myIconStyle} size="28px" /> Long-Term Usefulness</li>
+                            <li className='flex items-center text-textBlue pb-2 text-xl'><IoCheckmark style={myIconStyle} size="28px" /> Solving the Cold Start Problem</li>
+                            <li className='flex items-center text-textBlue pb-2 text-xl'><IoCheckmark style={myIconStyle} size="28px" /> Use of AI technology</li>
+                            <li className='flex items-center text-textBlue pb-2 text-xl'><IoCheckmark style={myIconStyle} size="28px" /> User convenience</li>
+                            <li className='flex items-center text-textBlue pb-2 text-xl'><IoCheckmark style={myIconStyle} size="28px" /> Real-Time Feedback</li>
+                            <li className='flex items-center text-textBlue pb-2 text-xl'><IoCheckmark style={myIconStyle} size="28px" /> Personalized Recommendations</li>
+                            <li className='flex items-center text-textBlue pb-2 text-xl'><IoCheckmark style={myIconStyle} size="28px" /> Cross-Platform Compatibility</li>
+                            <li className='flex items-center text-textBlue pb-2 text-xl'><IoCheckmark style={myIconStyle} size="28px" /> Long-Term Usefulness</li>
                         </ul>
                     </div>
                     <div className=''>

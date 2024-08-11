@@ -39,7 +39,7 @@ function PreferenceGallery() {
         <div className="card w-full sm:w-100 md:w-100 lg:w-1/2 xl:w-1/2">
           {/* מעבירים את SoundButton כ- prop ל CarouselPic */}
           {images.length > 0 ? (
-            <CarouselPic soundButton={<SoundButton soundUrl="/public/sounds/Gallery.mp3" />} />
+            <CarouselPic soundButton={<SoundButton soundUrl="/public/sounds/Gallery.mp3" />}   />
           ) : (
             <p>Loading images...</p>
           )}

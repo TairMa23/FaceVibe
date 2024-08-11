@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import { useImageStore } from "../../store/useStore";
+import { MdFullscreen, MdFullscreenExit } from "react-icons/md";
 
 interface CarouselPicProps {
   soundButton: React.ReactNode;
@@ -9,17 +10,17 @@ interface CarouselPicProps {
 const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
   const images = useImageStore((state) => state.images);
   const setCurrentImageId = useImageStore((state) => state.setCurrentImageId);
-  const setCurrentImageStyle = useImageStore(
-    (state) => state.setCurrentImageStyle
-  );
+  const setCurrentImageStyle = useImageStore((state) => state.setCurrentImageStyle);
 
   const [index, setIndex] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
-  const [showSoundButton, setShowSoundButton] = useState(false);
+  const [showSoundButton, setShowSoundButton] = useState(true);
+  const [showStartButton, setShowStartButton] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false); // Add fullscreen state
 
-  const initialImage = "path/to/initial-image.jpg"; // Replace with the actual path to the initial image
-  const finalImage = "path/to/final-image.jpg"; // Replace with the actual path to the final image
+  const initialImage = "public/gif/initialImage.gif";
+  const finalImage = "public/gif/finalImage.gif";
 
   const handleSelect = (selectedIndex: number) => {
     setIndex(selectedIndex);
@@ -32,14 +33,19 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
   const handleStart = () => {
     setIsRunning(true);
     setIsFinished(false);
-    setShowSoundButton(true);
   };
 
   const handleFinish = () => {
     setIsRunning(false);
-    setShowSoundButton(false);
-    // Add any additional logic for finishing the carousel, such as redirecting or showing a message
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowStartButton(true);
+    }, 20000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined;
@@ -64,17 +70,28 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
     };
   }, [isRunning, images.length]);
 
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+    setIsFullscreen(!isFullscreen);
+  };
+
   return (
-    <div className="position-relative">
+    <div className={`position-relative ${isFullscreen ? "fullscreen" : ""}`}>
       {showSoundButton && (
-        <div style={{ position: "absolute", top: "10px", right: "10px", zIndex: 10 }}>
+        <div
+          style={{ position: "absolute", top: "10px", right: "10px", zIndex: 10 }}
+        >
           {soundButton}
         </div>
       )}
 
       {!isRunning && !isFinished && (
         <img
-          className="d-block w-100"
+          className="d-block w-100 final-image"
           src={initialImage}
           alt="Initial Slide"
         />
@@ -92,7 +109,7 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           {images.map((item) => (
             <Carousel.Item key={item.id}>
               <img
-                className="d-block w-100"
+                className="d-block w-100 final-image"
                 src={item.url}
                 alt={`Slide ${item.id}`}
               />
@@ -103,15 +120,16 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
 
       {isFinished && (
         <img
-          className="d-block w-100"
+          className="d-block w-100 final-image"
           src={finalImage}
           alt="Final Slide"
         />
       )}
 
-      {!isRunning && !isFinished && (
+      {showStartButton && !isRunning && !isFinished && (
         <button
-          className="position-absolute top-50 start-50 translate-middle btn btn-primary"
+          className="position-absolute start-50 translate-middle btn btn-primary"
+          style={{ top: "90%" }}
           onClick={handleStart}
         >
           התחל
@@ -120,12 +138,28 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
 
       {isFinished && (
         <button
-          className="position-absolute top-50 start-50 translate-middle btn btn-secondary"
+          className="position-absolute start-50 translate-middle btn btn-secondary"
+          style={{ top: "80%" }}
           onClick={handleFinish}
         >
           סיום
         </button>
       )}
+
+      <button
+        className="position-absolute bottom-0 end-0 btn btn-light"
+        style={{
+          margin: "10px",
+          zIndex: 10,
+          background: "transparent", // Ensure the background is transparent
+          border: "none", // Remove any borders
+          boxShadow: "none", // Remove any box shadows
+          padding: 0 // Remove default padding
+        }}
+        onClick={toggleFullscreen}
+      >
+        {isFullscreen ? <MdFullscreenExit size={24} /> : <MdFullscreen size={24} />}
+      </button>
     </div>
   );
 };
