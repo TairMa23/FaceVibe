@@ -1,12 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import { useImageStore } from "../../store/useStore";
+import { useImageStore, useRunningStore } from "../../store/useStore";
 import { useEmotionStore } from "../../store/useEmotionStore";
 
-interface EmotionDetectionProps {
-  running: boolean;
-}
-
-const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
+const EmotionDetection: React.FC = () => {
+  const running = useRunningStore((state) => state.running);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -19,6 +16,8 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
     if (!detectorLoaded) return;
 
     const captureImage = () => {
+      console.log("captureImage");
+      console.log(running);
       if (videoRef.current) {
         navigator.mediaDevices
           .getUserMedia({ video: true })
@@ -59,6 +58,9 @@ const EmotionDetection: React.FC<EmotionDetectionProps> = ({ running }) => {
     };
 
     if (running && detectorLoaded) {
+      console.log("running && detectorLoaded");
+      console.log(running);
+
       captureImage();
     } else {
       if (intervalRef.current) {

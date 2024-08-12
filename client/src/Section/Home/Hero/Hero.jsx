@@ -11,7 +11,9 @@ const Hero = () => {
           </span>
           <h2 className="fnt font-bold text-6xl py-8 text-my-Blue ">
             FACE VIBE <br />
-            <span className="text-3xl text-textBlue">Smart Recommendations</span>
+            <span className="text-3xl text-textBlue">
+              Smart Recommendations
+            </span>
           </h2>
           <p className="text-my-subText font-bold text-xl mb-8">
             Find the perfect fit for your space – Our advanced technology

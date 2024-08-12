@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
-import { useImageStore } from "../../store/useStore";
+import { useImageStore, useRunningStore } from "../../store/useStore";
 import { MdFullscreen, MdFullscreenExit } from "react-icons/md";
+import StartButton from "../StartButton/StartButton";
+import EndButton from "../EndButton/EndButton";
 
 interface CarouselPicProps {
   soundButton: React.ReactNode;
@@ -10,10 +12,12 @@ interface CarouselPicProps {
 const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
   const images = useImageStore((state) => state.images);
   const setCurrentImageId = useImageStore((state) => state.setCurrentImageId);
-  const setCurrentImageStyle = useImageStore((state) => state.setCurrentImageStyle);
+  const setCurrentImageStyle = useImageStore(
+    (state) => state.setCurrentImageStyle
+  );
 
   const [index, setIndex] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
+  const isRunning = useRunningStore((state) => state.running);
   const [isFinished, setIsFinished] = useState(false);
   const [showSoundButton, setShowSoundButton] = useState(true);
   const [showStartButton, setShowStartButton] = useState(false);
@@ -28,15 +32,6 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
       setCurrentImageId(images[selectedIndex].id);
       setCurrentImageStyle(images[selectedIndex].style);
     }
-  };
-
-  const handleStart = () => {
-    setIsRunning(true);
-    setIsFinished(false);
-  };
-
-  const handleFinish = () => {
-    setIsRunning(false);
   };
 
   useEffect(() => {
@@ -55,14 +50,12 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
         setIndex((prevIndex) => {
           const nextIndex = prevIndex + 1;
           if (nextIndex >= images.length) {
-            clearInterval(interval);
-            setIsRunning(false);
             setIsFinished(true);
             return prevIndex;
           }
           return nextIndex;
         });
-      }, 1000);
+      }, 3000);
     }
 
     return () => {
@@ -83,7 +76,12 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
     <div className={`position-relative ${isFullscreen ? "fullscreen" : ""}`}>
       {showSoundButton && (
         <div
-          style={{ position: "absolute", top: "10px", right: "10px", zIndex: 10 }}
+          style={{
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            zIndex: 10,
+          }}
         >
           {soundButton}
         </div>
@@ -103,7 +101,7 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           controls={false}
           indicators={false}
           interval={null}
-          onSelect={handleSelect}
+          onSlide={handleSelect}
           pause={false}
         >
           {images.map((item) => (
@@ -126,25 +124,9 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
         />
       )}
 
-      {showStartButton && !isRunning && !isFinished && (
-        <button
-          className="position-absolute start-50 translate-middle btn btn-primary"
-          style={{ top: "90%" }}
-          onClick={handleStart}
-        >
-          התחל
-        </button>
-      )}
+      {showStartButton && !isRunning && !isFinished && <StartButton />}
 
-      {isFinished && (
-        <button
-          className="position-absolute start-50 translate-middle btn btn-secondary"
-          style={{ top: "80%" }}
-          onClick={handleFinish}
-        >
-          סיום
-        </button>
-      )}
+      {isFinished && <EndButton />}
 
       <button
         className="position-absolute bottom-0 end-0 btn btn-light"
@@ -154,11 +136,15 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           background: "transparent", // Ensure the background is transparent
           border: "none", // Remove any borders
           boxShadow: "none", // Remove any box shadows
-          padding: 0 // Remove default padding
+          padding: 0, // Remove default padding
         }}
         onClick={toggleFullscreen}
       >
-        {isFullscreen ? <MdFullscreenExit size={24} /> : <MdFullscreen size={24} />}
+        {isFullscreen ? (
+          <MdFullscreenExit size={24} />
+        ) : (
+          <MdFullscreen size={24} />
+        )}
       </button>
     </div>
   );
