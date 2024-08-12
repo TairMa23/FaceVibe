@@ -55,7 +55,7 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           }
           return nextIndex;
         });
-      }, 3000);
+      }, 1000);
     }
 
     return () => {

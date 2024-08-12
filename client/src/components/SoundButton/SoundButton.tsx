@@ -1,41 +1,44 @@
-import React, { useEffect } from "react";
-import useSound from "use-sound";
+import React, { useEffect, useRef } from "react";
 import { FaCirclePlay, FaCircleStop } from "react-icons/fa6";
+import { useAudio } from "../../store/useAudio";
 
-interface SoundButtonProps {
-  soundUrl: string;
-  size?: number;
-}
-
-const SoundButton: React.FC<SoundButtonProps> = ({ soundUrl, size = 30 }) => {
-  const [play, { stop }] = useSound(soundUrl);
-  const [isPlaying, setIsPlaying] = React.useState(true); // התחלתי ל-true
+const SoundButton: React.FC = () => {
+  const size = 30;
+  const { isPlaying, play, stop } = useAudio();
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // נגן את המוזיקה כשנטען הרכיב
-    const startPlaying = async () => {
-      try {
-          play();
-      } catch (error) {
-        console.error("Failed to play sound:", error);
-        setIsPlaying(false); // אם השמע נכשל, נעדכן את המצב
+    audioRef.current = new Audio("/public/sounds/Gallery.mp3");
+    audioRef.current.loop = true; // אופציונלי: אם אתה רוצה שהשיר יחזור על עצמו
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
       }
     };
+  }, []);
 
-    startPlaying();
-  }, [play]);
-
-  const handleClick = async () => {
-    if (isPlaying) {
-      stop();
-      setIsPlaying(false);
-    } else {
+  useEffect(() => {
+    const startPlaying = async () => {
       try {
-          play(); // שימוש ב-Promise כדי לוודא שהשמע מתחיל לפעול
-        setIsPlaying(true);
+        if (isPlaying && audioRef.current) {
+          await audioRef.current.play();
+        }
       } catch (error) {
         console.error("Failed to play sound:", error);
       }
+    };
+    startPlaying();
+  }, [isPlaying]);
+
+  const handleClick = () => {
+    if (isPlaying) {
+      stop();
+      audioRef.current?.pause();
+    } else {
+      play();
+      audioRef.current?.play();
     }
   };
 

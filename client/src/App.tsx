@@ -8,15 +8,15 @@ import Feedback from "./pages/Feedback/Feedback";
 import PreferenceGallery from "./pages/PreferenceGallery/PreferenceGallery";
 import FAButton from "./components/FAButton/FAButton";
 import { useEmotionStore } from "./store/useEmotionStore";
+import { useAudioManager } from "./components/SoundButton/audioManager";
 
 function App() {
-  const { loadDetector, detectorLoaded, initSocket, disconnectSocket } =
-    useEmotionStore();
+  const { loadDetector, initSocket, disconnectSocket } = useEmotionStore();
+  useAudioManager();
 
   useEffect(() => {
     loadDetector();
     initSocket();
-
     return () => {
       disconnectSocket();
     };
