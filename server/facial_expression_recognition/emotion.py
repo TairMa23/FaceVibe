@@ -19,8 +19,8 @@ detector = FER()
 @emotion_blueprint.route('/load_detector', methods=['GET'])
 def load_detector():
     global detector
+    global emotion_analyzer
     try:
-        # Create an instance of EmotionAnalyzer
         emotion_analyzer = EmotionAnalyzer()
         if detector is not None:
             print('FER detector loaded successfully')

@@ -23,10 +23,21 @@ ChartJS.register(
   Legend
 );
 
+// רשימת כל הרגשות עם ערך ברירת מחדל של 0
+const defaultEmotions = {
+  happy: 0,
+  surprise: 0,
+  angry: 0,
+  disgust: 0,
+  fear: 0,
+  sad: 0,
+  neutral: 0,
+};
+
 const processData = (data: { [key: string]: number }) => {
-  return Object.keys(data).map((emotion) => ({
+  return Object.keys(defaultEmotions).map((emotion) => ({
     x: emotion,
-    y: data[emotion],
+    y: data[emotion] || defaultEmotions[emotion],
   }));
 };
 
@@ -38,11 +49,11 @@ const BoxPlot: React.FC = () => {
   }, [calculateEmotionPercentages]);
 
   const chartData = {
-    labels: emotionPercentages ? Object.keys(emotionPercentages) : [],
+    labels: Object.keys(defaultEmotions), // תמיד נציג את כל הרגשות
     datasets: [
       {
         label: "Emotion Percentages",
-        data: emotionPercentages ? processData(emotionPercentages) : [],
+        data: processData(emotionPercentages || defaultEmotions), // נשתמש בנתונים אם קיימים
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
@@ -102,7 +113,7 @@ const BoxPlot: React.FC = () => {
   return (
     <div
       style={{
-        width: "130%",
+        width: "115%",
         marginTop: "100px",
       }}
     >

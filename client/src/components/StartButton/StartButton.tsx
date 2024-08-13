@@ -1,12 +1,15 @@
 import { useEffect } from "react";
 import { useRunningStore } from "../../store/useStore";
 import Button from "../Button/Button";
+import { useEmotionStore } from "../../store/useEmotionStore";
 
 function StartButton() {
   const running = useRunningStore((state) => state.running);
   const setRunning = useRunningStore((state) => state.setRunning);
+  const { loadDetector } = useEmotionStore();
 
   const handleClick = () => {
+    loadDetector();
     setRunning(true);
   };
   useEffect(() => {
