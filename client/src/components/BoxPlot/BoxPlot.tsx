@@ -100,7 +100,12 @@ const BoxPlot: React.FC = () => {
   };
 
   return (
-    <div style={{ width: "700px", height: "700px" }}>
+    <div
+      style={{
+        width: "130%",
+        marginTop: "100px",
+      }}
+    >
       <h2>Emotion Percentages</h2>
       <ChartJSComponent type="bar" data={chartData} options={chartOptions} />
     </div>
