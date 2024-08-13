@@ -15,7 +15,7 @@
     "url": "https://img.freepik.com/premium-photo/minimalist-kitchen-with-white-cabinets-simple-sink-clean-countertops_1167636-1022.jpg?w=900",
     "color": "white",
     "category": "kitchen",
-    "style": "modern",
+    "style": "Modern",
     "dimensions": "50x50x100 cm",
     "material": " "
   },
@@ -125,7 +125,7 @@
     "url": "https://img.freepik.com/premium-photo/minimalist-living-room-with-concrete-wall-black-couch-plant-pot_14117-821929.jpg?w=900",
     "color": "black ,gray",
     "category": "living room",
-    "style": "industrial",
+    "style": "Industrial",
     "dimensions": "4368x2448px / JPG",
     "material": ""
   },
@@ -133,6 +133,7 @@
     "id": 14,
     "name": "Industrial kitchen",
     "url": "https://img.freepik.com/free-photo/beautiful-kitchen-interior-design_23-2150976593.jpg?t=st=1722811875~exp=1722815475~hmac=101ca9503ba70c5ee34167d62d01c028f9e86eb315274c8c1b16fc429f64ae58&w=900",
+    "color": "black ,gray",
     "category": "kitchen",
     "style": "Industrial",
     "dimensions": "7000x5316px / JPG cm",
@@ -174,7 +175,7 @@
     "url": "https://img.freepik.com/premium-photo/modern-bedroom-with-simple-elegant-bedding-stylish-lamp-minimalistic-decor-serene-retreat_875722-70554.jpg?w=900",
     "color": "white",
     "category": "bedroom",
-    "style": "minimalistic",
+    "style": "Minimalistic",
     "dimensions": "5824x3264px / JPG",
     "material": ""
   },
