@@ -4,13 +4,14 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Rating from '../../../components/Rating/Rating';
-import Button from '../../../components/Button/Button'; // Assuming you're using MUI Button, otherwise replace it with your Button component
-import { useNavigate } from 'react-router-dom'; // Assuming you're using React Router
+import Button from '../../../components/Button/Button';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast'; // Import react-hot-toast
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#ffede9',
   ...theme.typography.body2,
-  padding: theme.spacing(4), // Increase padding for a larger size
+  padding: theme.spacing(4),
   textAlign: 'center',
   color: theme.palette.text.secondary,
   border: '1px solid #ddd',
@@ -18,14 +19,13 @@ const Item = styled(Paper)(({ theme }) => ({
   margin: '0 60px',
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   position: 'relative',
-  width: '100%', // Adjust width of each Item
-  height: 'auto', // You can set a specific height if needed
-  maxWidth: '900px', // Maximum width for each item
+  width: '100%',
+  height: 'auto',
+  maxWidth: '900px',
 }));
 
 const Questions: React.FC = () => {
   const navigate = useNavigate();
-  
   const [ratings, setRatings] = useState<(number | null)[]>(Array(5).fill(null));
 
   const handleRatingChange = (index: number, rating: number | null) => {
@@ -38,15 +38,18 @@ const Questions: React.FC = () => {
 
   const handleSendClick = () => {
     if (allQuestionsAnswered) {
-      navigate('/Home'); // Navigate to the desired page if all questions are answered
+      navigate("/"); 
     } else {
-      alert('Please answer all the questions before proceeding.');
+      toast.error('Please answer all the questions before proceeding.', {
+        duration: 4000,
+        position: 'top-right',
+      });
     }
   };
 
   return (
     <>
-      <div className="text-center">  
+      <div className="text-center" style={{ marginTop: '70px' }}>  
         <h2 className='text-sectionTitle text-6xl text-se fnt font-bold'>Rate Your Experience</h2>
       </div>
       <Box sx={{ width: '100%', padding: '20px' }}>
@@ -74,7 +77,6 @@ const Questions: React.FC = () => {
           onClick={handleSendClick}
           title="Send"
         >
-          Send
         </Button>
       </div>
     </>

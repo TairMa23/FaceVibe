@@ -129,10 +129,12 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
       {isFinished && <EndButton />}
 
       <button
-        className="position-absolute bottom-0 end-0 btn btn-light"
+        className="position-absolute    btn btn-light"
         style={{
-          margin: "10px",
+          top: "15px",
+          right: "50px",
           zIndex: 10,
+          
           background: "transparent", // Ensure the background is transparent
           border: "none", // Remove any borders
           boxShadow: "none", // Remove any box shadows
