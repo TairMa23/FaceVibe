@@ -6,14 +6,14 @@ interface RunningState {
 }
 
 export interface ImageItem {
-  id: string;
+  _id: string;
   url: string;
   name: string;
   color: string;
   category: string;
   style: string;
-  dimensions: string;
-  material: string;
+  dimensions?: string;
+  material?: string;
 }
 
 interface ImageState {
@@ -40,7 +40,7 @@ export const useImageStore = create<ImageState>((set) => ({
     set((state) => ({
       currentImageId: id,
       currentImageStyle:
-        state.images.find((image) => image.id === id)?.style || null,
+        state.images.find((image) => image._id === id)?.style || null,
     }));
   },
   setCurrentImageStyle: (style) => {

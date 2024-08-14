@@ -28,8 +28,10 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
 
   const handleSelect = (selectedIndex: number) => {
     setIndex(selectedIndex);
+    console.log("selectedIndex: ", selectedIndex);
+
     if (images[selectedIndex]) {
-      setCurrentImageId(images[selectedIndex].id);
+      setCurrentImageId(images[selectedIndex]._id);
       setCurrentImageStyle(images[selectedIndex].style);
     }
   };
@@ -105,11 +107,11 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           pause={false}
         >
           {images.map((item) => (
-            <Carousel.Item key={item.id}>
+            <Carousel.Item key={item._id}>
               <img
                 className="d-block w-100 final-image"
                 src={item.url}
-                alt={`Slide ${item.id}`}
+                alt={`Slide ${item._id}`}
               />
             </Carousel.Item>
           ))}
