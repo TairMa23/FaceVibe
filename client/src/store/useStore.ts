@@ -3,6 +3,8 @@ import { create } from "zustand";
 interface RunningState {
   running: boolean;
   setRunning: (value: boolean) => void;
+  cameraPermissionGranted: boolean;
+  setCameraPermissionGranted: (value: boolean) => void;
 }
 
 export interface ImageItem {
@@ -28,6 +30,9 @@ interface ImageState {
 export const useRunningStore = create<RunningState>((set) => ({
   running: false,
   setRunning: (value) => set({ running: value }),
+  cameraPermissionGranted: false,
+  setCameraPermissionGranted: (value) =>
+    set({ cameraPermissionGranted: value }),
 }));
 
 export const useImageStore = create<ImageState>((set) => ({

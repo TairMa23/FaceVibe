@@ -18,8 +18,11 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
 
   const [index, setIndex] = useState(0);
   const isRunning = useRunningStore((state) => state.running);
+  const cameraPermissionGranted = useRunningStore(
+    (state) => state.cameraPermissionGranted
+  );
   const [isFinished, setIsFinished] = useState(false);
-  const [showSoundButton, setShowSoundButton] = useState(true);
+  const [showSoundButton] = useState(true);
   const [showStartButton, setShowStartButton] = useState(false);
   const [showEndButton, setShowEndButton] = useState(false); // Add state for EndButton visibility
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -107,7 +110,7 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           alt="Initial Slide"
         />
       )}
-      {isRunning && !isFinished && (
+      {isRunning && !isFinished && cameraPermissionGranted && (
         <Carousel
           activeIndex={index}
           controls={false}
