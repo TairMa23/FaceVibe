@@ -1,8 +1,15 @@
 import React from "react";
 import Button from "../../../components/Button/Button";
 import GifLooper from "../../../components/GifLooper/GifLooper"; // שנה את הנתיב בהתאם למיקום הקומפוננטה
+import { useAudio } from "../../../store/useAudio";
 
 const Hero = () => {
+  const { setIsPlaying } = useAudio();
+
+  const handleStartClick = () => {
+    setIsPlaying(true);
+  };
+
   return (
     <div className="bg-my-lightpink relative">
       <div className="container mx-auto flex flex-col md:flex-row items-center p-4 flex-1 py-20">
@@ -24,6 +31,7 @@ const Hero = () => {
           <Button
             className="bg-my-pink px-6 py-3 rounded-sm text-white fnt font-semibold"
             title="Lets Start"
+            onClick={handleStartClick}
             link="/preferenceGallery"
           />
         </div>
