@@ -18,6 +18,7 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
 
   const [index, setIndex] = useState(0);
   const isRunning = useRunningStore((state) => state.running);
+  const setIsRunning = useRunningStore((state) => state.setRunning);
   const cameraPermissionGranted = useRunningStore(
     (state) => state.cameraPermissionGranted
   );
@@ -72,13 +73,14 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
   // Show EndButton 1.5 seconds after the carousel finishes
   useEffect(() => {
     if (isFinished) {
+      setIsRunning(false);
       const endButtonTimer = setTimeout(() => {
         setShowEndButton(true);
       }, 2700);
 
       return () => clearTimeout(endButtonTimer);
     }
-  }, [isFinished]);
+  }, [isFinished, setIsRunning]);
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
