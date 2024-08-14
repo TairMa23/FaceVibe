@@ -1,10 +1,11 @@
 import React from "react";
 import Button from "../../../components/Button/Button";
+import GifLooper from "../../../components/GifLooper/GifLooper"; // שנה את הנתיב בהתאם למיקום הקומפוננטה
 
 const Hero = () => {
   return (
     <div className="bg-my-lightpink relative">
-      <div className="container mx-auto flex flex-col md:flex-row items-center p-4 flex-1  py-20">
+      <div className="container mx-auto flex flex-col md:flex-row items-center p-4 flex-1 py-20">
         <div className="">
           <span className="font-bold text-lg text-my-pink">
             Best Furniture For Your Style....
@@ -23,15 +24,12 @@ const Hero = () => {
           <Button
             className="bg-my-pink px-6 py-3 rounded-sm text-white fnt font-semibold"
             title="Lets Start"
-            // link="/Feedback"
             link="/preferenceGallery"
           />
         </div>
-        <img
-          src="/images/emoji.gif"
-          className="w-[600px] h-[500px] object-cover hidden lg:block"
-          alt="Animated GIF"
-        />
+        <div className="w-[600px] h-[400px] hidden lg:block">
+          <GifLooper />
+        </div>
       </div>
     </div>
   );

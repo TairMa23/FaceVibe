@@ -22,15 +22,13 @@ ChartJS.register(
 
 // Define custom text for each label
 const customTexts: { [key: string]: string } = {
-  Bohemian:
-    "Bohemian style is characterized by its artistic and eclectic look.",
-  minimalistic: "Minimalistic style focuses on simplicity and functionality.",
-  Industrial:
-    "Industrial style embraces raw materials and a factory-inspired look.",
-  Rustic: "Rustic style brings a natural and cozy feel with earthy elements.",
-  Vintage: "Vintage style adds a sense of nostalgia with retro elements.",
-  Classic: "Classic style features timeless designs and elegance.",
-  Modern: "Modern style emphasizes clean lines and contemporary aesthetics.",
+  Bohemian:"style is characterized by its artistic and eclectic look.",
+  Minimalistic:"style focuses on simplicity and functionality.",
+  Industrial: "style embraces raw materials and a factory-inspired look.",
+  Rustic: "style brings a natural and cozy feel with earthy elements.",
+  Vintage: "style adds a sense of nostalgia with retro elements.",
+  Classic: "style features timeless designs and elegance.",
+  Modern: "style emphasizes clean lines and contemporary aesthetics.",
 };
 
 const Radar: React.FC = () => {
@@ -45,8 +43,8 @@ const Radar: React.FC = () => {
         {
           label: "Styles",
           data,
-          backgroundColor: "rgba(255, 99, 132, 0.2)",
-          borderColor: "rgba(255, 99, 132, 1)",
+          backgroundColor: "rgba(213, 150, 181, 0.2)",
+          borderColor: "rgba(213, 150, 181, 1)",
           borderWidth: 1,
         },
       ],
@@ -61,10 +59,15 @@ const Radar: React.FC = () => {
           max: 100,
           ticks: {
             stepSize: 10,
+            font: {
+              size: 10,
+              family: "'Josefin Sans', sans-serif",
+            },
           },
           pointLabels: {
             font: {
-              size: 16,
+              size: 18,
+              family: "'Josefin Sans', sans-serif",
             },
           },
         },
@@ -92,8 +95,12 @@ const Radar: React.FC = () => {
 
   return (
     <div>
-      <h2>Design Styles Analysis</h2>
-      <p>Based on {Object.keys(stylePercentages).length} different styles</p>
+      <h2 className="fnt font-bold text-2xl py-1 text-my-Blue ">
+        Design Styles Analysis <br />
+       </h2>
+       <span className="text-m font-bold text-my-pink fnt ">
+       <p>Based on {Object.keys(stylePercentages).length} different styles</p>
+       </span>
       <RadarChart data={radarData} options={radarOptions} />
     </div>
   );

@@ -5,11 +5,11 @@ import FooterBar from "../FooterBar/FooterBar";
 const Footer = () => {
   return (
     <div className="w-full">
-      <div className="py-6">
+      <div className="py-5">
         <div className="container mx-auto w-full grid grid-cols-1 md:grid-cols-3 justify-items-center md:justify-items-start items-center mt-6 gap-6">
           <div className="mx-6 text-center md:text-left flex justify-center items-center">
-            {/* Adjust the size of the logo */}
-            <Logo className="w-40 h-40" /> {/* You can adjust the width and height as needed */}
+              <img src="/images/logo.png" className='w-[180px] object-cover' alt="" />
+              
             <form className="flex items-center py-4 gap-2"></form>
           </div>
           <div className="md:mr-6 mx-6 text-left">
