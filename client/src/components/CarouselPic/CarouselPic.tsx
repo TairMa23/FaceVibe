@@ -21,7 +21,8 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
   const [isFinished, setIsFinished] = useState(false);
   const [showSoundButton, setShowSoundButton] = useState(true);
   const [showStartButton, setShowStartButton] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false); // Add fullscreen state
+  const [showEndButton, setShowEndButton] = useState(false); // Add state for EndButton visibility
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   const initialImage = "public/gif/initialImage.gif";
   const finalImage = "public/gif/finalImage.gif";
@@ -55,13 +56,24 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           }
           return nextIndex;
         });
-      }, 3000);
+      }, 1000);
     }
 
     return () => {
       if (interval) clearInterval(interval);
     };
   }, [isRunning, images.length]);
+
+  // Show EndButton 1.5 seconds after the carousel finishes
+  useEffect(() => {
+    if (isFinished) {
+      const endButtonTimer = setTimeout(() => {
+        setShowEndButton(true);
+      }, 2700);
+
+      return () => clearTimeout(endButtonTimer);
+    }
+  }, [isFinished]);
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -126,19 +138,18 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
 
       {showStartButton && !isRunning && !isFinished && <StartButton />}
 
-      {isFinished && <EndButton />}
+      {showEndButton && <EndButton />} {/* Display EndButton after delay */}
 
       <button
-        className="position-absolute    btn btn-light"
+        className="position-absolute btn btn-light"
         style={{
           top: "15px",
           right: "50px",
           zIndex: 10,
-          
-          background: "transparent", // Ensure the background is transparent
-          border: "none", // Remove any borders
-          boxShadow: "none", // Remove any box shadows
-          padding: 0, // Remove default padding
+          background: "transparent",
+          border: "none",
+          boxShadow: "none",
+          padding: 0,
         }}
         onClick={toggleFullscreen}
       >
