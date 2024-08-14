@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from flask import Blueprint, jsonify, request
 from pymongo import MongoClient
-import logging
+import random
 
 # Load environment variables
 load_dotenv()
@@ -22,5 +22,6 @@ def get_products():
     print(f"Fetched {len(products)} products from the database")
     for product in products:
         product['_id'] = str(product['_id'])  # Convert ObjectId to string for JSON serialization
+    random.shuffle(products)
     return jsonify(products)
 

@@ -10,7 +10,7 @@ cors = CORS(app, origins='*')
 app.config['SECRET_KEY'] = 'secret!'
 
 # Set up logging
-logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)
 
 # Register blueprints
 # app.register_blueprint(furniture_blueprint)

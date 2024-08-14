@@ -58,7 +58,7 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           }
           return nextIndex;
         });
-      }, 1000);
+      }, 3000);
     }
 
     return () => {
@@ -100,7 +100,6 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           {soundButton}
         </div>
       )}
-
       {!isRunning && !isFinished && (
         <img
           className="d-block w-100 final-image"
@@ -108,7 +107,6 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           alt="Initial Slide"
         />
       )}
-
       {isRunning && !isFinished && (
         <Carousel
           activeIndex={index}
@@ -129,7 +127,6 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           ))}
         </Carousel>
       )}
-
       {isFinished && (
         <img
           className="d-block w-100 final-image"
@@ -137,11 +134,8 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           alt="Final Slide"
         />
       )}
-
       {showStartButton && !isRunning && !isFinished && <StartButton />}
-
       {showEndButton && <EndButton />} {/* Display EndButton after delay */}
-
       <button
         className="position-absolute btn btn-light"
         style={{
