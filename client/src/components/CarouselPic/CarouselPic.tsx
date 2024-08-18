@@ -18,8 +18,12 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
 
   const [index, setIndex] = useState(0);
   const isRunning = useRunningStore((state) => state.running);
+  const setIsRunning = useRunningStore((state) => state.setRunning);
+  const cameraPermissionGranted = useRunningStore(
+    (state) => state.cameraPermissionGranted
+  );
   const [isFinished, setIsFinished] = useState(false);
-  const [showSoundButton, setShowSoundButton] = useState(true);
+  const [showSoundButton] = useState(true);
   const [showStartButton, setShowStartButton] = useState(false);
   const [showEndButton, setShowEndButton] = useState(false); // Add state for EndButton visibility
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -29,8 +33,10 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
 
   const handleSelect = (selectedIndex: number) => {
     setIndex(selectedIndex);
+    console.log("selectedIndex: ", selectedIndex);
+
     if (images[selectedIndex]) {
-      setCurrentImageId(images[selectedIndex].id);
+      setCurrentImageId(images[selectedIndex]._id);
       setCurrentImageStyle(images[selectedIndex].style);
     }
   };
@@ -56,7 +62,7 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           }
           return nextIndex;
         });
-      }, 1000);
+      }, 3000);
     }
 
     return () => {
@@ -67,13 +73,14 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
   // Show EndButton 1.5 seconds after the carousel finishes
   useEffect(() => {
     if (isFinished) {
+      setIsRunning(false);
       const endButtonTimer = setTimeout(() => {
         setShowEndButton(true);
       }, 2700);
 
       return () => clearTimeout(endButtonTimer);
     }
-  }, [isFinished]);
+  }, [isFinished, setIsRunning]);
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -98,7 +105,6 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           {soundButton}
         </div>
       )}
-
       {!isRunning && !isFinished && (
         <img
           className="d-block w-100 final-image"
@@ -106,8 +112,7 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           alt="Initial Slide"
         />
       )}
-
-      {isRunning && !isFinished && (
+      {isRunning && !isFinished && cameraPermissionGranted && (
         <Carousel
           activeIndex={index}
           controls={false}
@@ -117,17 +122,16 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           pause={false}
         >
           {images.map((item) => (
-            <Carousel.Item key={item.id}>
+            <Carousel.Item key={item._id}>
               <img
                 className="d-block w-100 final-image"
                 src={item.url}
-                alt={`Slide ${item.id}`}
+                alt={`Slide ${item._id}`}
               />
             </Carousel.Item>
           ))}
         </Carousel>
       )}
-
       {isFinished && (
         <img
           className="d-block w-100 final-image"
@@ -135,11 +139,8 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
           alt="Final Slide"
         />
       )}
-
       {showStartButton && !isRunning && !isFinished && <StartButton />}
-
       {showEndButton && <EndButton />} {/* Display EndButton after delay */}
-
       <button
         className="position-absolute btn btn-light"
         style={{

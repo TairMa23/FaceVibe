@@ -7,11 +7,13 @@ const DataFetching: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/furniture");
-        console.log("sucsses load api/furniture");
+        const response = await axios.get(
+          "http://localhost:8080/api/mongodb/products"
+        );
+        console.log("sucsses load api/mongodb/products");
 
-        const imageItems = response.data.furniture.map((item: ImageItem) => ({
-          id: item.id,
+        const imageItems = response.data.map((item: ImageItem) => ({
+          _id: item._id,
           name: item.name,
           url: item.url,
           color: item.color,
@@ -20,12 +22,13 @@ const DataFetching: React.FC = () => {
           dimensions: item.dimensions,
           material: item.material,
         }));
+        console.log(imageItems);
+
         setImages(imageItems);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
   }, [setImages]);
 

@@ -9,7 +9,7 @@ interface AudioStore {
 }
 
 export const useAudioStore = create<AudioStore>((set) => ({
-  isPlaying: true,
+  isPlaying: false,
   setIsPlaying: (isPlaying) => set({ isPlaying }),
   play: () => set({ isPlaying: true }),
   stop: () => set({ isPlaying: false }),

@@ -4,42 +4,41 @@ import { useAudio } from "../../store/useAudio";
 
 const SoundButton: React.FC = () => {
   const size = 30;
-  const { isPlaying, play, stop } = useAudio();
+  const { isPlaying, setIsPlaying } = useAudio();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  useEffect(() => {
-    audioRef.current = new Audio("/public/sounds/Gallery.mp3");
-    audioRef.current.loop = true; // אופציונלי: אם אתה רוצה שהשיר יחזור על עצמו
+  // useEffect(() => {
+  //   audioRef.current = new Audio("/public/sounds/Gallery.mp3");
+  //   audioRef.current.loop = true;
+  //   audioRef.current.preload = "auto";
 
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
-  }, []);
+  //   return () => {
+  //     if (audioRef.current) {
+  //       audioRef.current.pause();
+  //       audioRef.current = null;
+  //     }
+  //   };
+  // }, []);
 
   useEffect(() => {
-    const startPlaying = async () => {
-      try {
-        if (isPlaying && audioRef.current) {
+    const handlePlay = async () => {
+      if (isPlaying && audioRef.current) {
+        try {
           await audioRef.current.play();
+        } catch (error) {
+          console.error("Failed to play sound:", error);
+          setIsPlaying(false);
         }
-      } catch (error) {
-        console.error("Failed to play sound:", error);
+      } else if (!isPlaying && audioRef.current) {
+        audioRef.current.pause();
       }
     };
-    startPlaying();
-  }, [isPlaying]);
+
+    handlePlay();
+  }, [isPlaying, setIsPlaying]);
 
   const handleClick = () => {
-    if (isPlaying) {
-      stop();
-      audioRef.current?.pause();
-    } else {
-      play();
-      audioRef.current?.play();
-    }
+    setIsPlaying(!isPlaying);
   };
 
   return (

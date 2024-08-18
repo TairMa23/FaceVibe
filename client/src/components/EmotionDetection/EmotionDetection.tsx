@@ -11,17 +11,19 @@ const EmotionDetection: React.FC = () => {
   const { currentImageId, currentImageStyle } = useImageStore();
   const { detectorLoaded, emotion, score, sendImageToServer } =
     useEmotionStore();
+  const setCameraPermissionGranted = useRunningStore(
+    (state) => state.setCameraPermissionGranted
+  );
 
   useEffect(() => {
     if (!detectorLoaded) return;
 
     const captureImage = () => {
-      console.log("captureImage");
-      console.log(running);
       if (videoRef.current) {
         navigator.mediaDevices
           .getUserMedia({ video: true })
           .then((stream) => {
+            setCameraPermissionGranted(true);
             streamRef.current = stream;
             videoRef.current!.srcObject = stream;
             videoRef.current!.onloadedmetadata = () => {
@@ -85,6 +87,7 @@ const EmotionDetection: React.FC = () => {
     detectorLoaded,
     sendImageToServer,
     currentImageStyle,
+    setCameraPermissionGranted,
   ]);
 
   if (!detectorLoaded) {

@@ -1,8 +1,15 @@
 import React from "react";
 import Button from "../../../components/Button/Button";
 import GifLooper from "../../../components/GifLooper/GifLooper"; // שנה את הנתיב בהתאם למיקום הקומפוננטה
+import { useAudio } from "../../../store/useAudio";
 
 const Hero = () => {
+  const { setIsPlaying } = useAudio();
+
+  const handleStartClick = () => {
+    setIsPlaying(true);
+  };
+
   return (
     <div className="relative">
       <div className="bg-my-lightpink dark:bg-dark-background py-30">
