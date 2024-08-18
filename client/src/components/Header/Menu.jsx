@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
+import DarkModeToggle from "../DarkModeToggle/DarkModeToggle";
 
 const Menu = () => {
   const [mobileMenuToggle, setMobileMenuToggle] = useState(false);
@@ -10,14 +11,7 @@ const Menu = () => {
       text: "Home",
       url: "/",
     },
-    { 
-      text: "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0",
-      url: "/",
-    },
-    {
-      text: "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0",
-      url: "/",
-    } 
+     
   ];
 
   const mobileToggleClick = () => {
@@ -44,16 +38,22 @@ const Menu = () => {
           })}
           <div className="flex items-center gap-4 mt-12"></div>
         </ul>
+        {/* Render DarkModeToggle component in mobile menu */}
+        <DarkModeToggle />
       </div>
       <nav className="hidden md:flex">
-        <ul className="flex items-center gap-9 font-[400] text-lg">
+        <ul className="flex items-center gap-9 font-[400] text-lg dark:text-white">
           {menuContent.map((item, index) => {
             return (
               <li key={index} className="flex items-center">
-              <a href={item.url}>{item.text}</a>
-            </li>
+                <a href={item.url}>{item.text}</a>
+              </li>
             );
           })}
+          {/* Render DarkModeToggle component in desktop menu */}
+          <li className="flex items-center">
+            <DarkModeToggle />
+          </li>
         </ul>
       </nav>
 

@@ -27,8 +27,18 @@ export default {
         'my-purple2': '#BB7F9B',
         'my-Blue': '#19283d',
         'my-orange1': '#F5C2B1',
+
+         // צבעים למצב לילה
+         'dark-background': '#170c29',
+         'dark-background2': '#281549',
+         'dark-my-pink': '#9ff7fe',
+         'dark-my-subText': '#0f3460',
+         'dark-accent': '#e94560',
+         'dark-text': '#ffffff',
       },
+      
     },
   },
+  darkMode: 'class', // הוספת תמיכה במצב לילה
   plugins: [],
 };

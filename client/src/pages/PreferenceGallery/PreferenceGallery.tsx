@@ -17,8 +17,8 @@ function PreferenceGallery() {
       <HeaderBar />
       <Header menu={<Menu />} />
       <DataFetching />
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="card w-full sm:w-100 md:w-100 lg:w-1/2 xl:w-1/2">
+      <div className="flex items-center justify-center min-h-screen dark:bg-dark-background relative">
+        <div className="card w-full sm:w-100 md:w-100 lg:w-1/2 xl:w-1/2 dark:bg-dark-background relative">
           {/* מעבירים את SoundButton כ- prop ל CarouselPic */}
           {images.length > 0 ? (
             <CarouselPic soundButton={<SoundButton />} />

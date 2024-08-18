@@ -3,7 +3,7 @@ import Logo from "./Logo";
 
 const Header = ({ menu }) => {
   return (
-    <div className="bg-white py-4">
+    <div className="dark:bg-dark-background relative py-2">
       <div className="container mx-auto">
         <div className="flex items-center gap-20 justify-between">
           <Logo />

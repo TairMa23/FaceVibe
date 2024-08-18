@@ -61,7 +61,7 @@ const Radar: React.FC = () => {
             stepSize: 10,
             font: {
               size: 10,
-              family: "'Josefin Sans', sans-serif",
+              זfamily: "'Josefin Sans', sans-serif",
             },
           },
           pointLabels: {
@@ -95,7 +95,7 @@ const Radar: React.FC = () => {
 
   return (
     <div>
-      <h2 className="fnt font-bold text-2xl py-1 text-my-Blue ">
+      <h2 className="fnt font-bold text-3xl py-1 text-my-Blue dark:text-dark-text">
         Design Styles Analysis <br />
        </h2>
        <span className="text-m font-bold text-my-pink fnt ">

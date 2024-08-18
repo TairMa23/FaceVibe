@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
+import DarkModeToggle from "../DarkModeToggle/DarkModeToggle";
 
 const Menu = () => {
   const [mobileMenuToggle, setMobileMenuToggle] = useState(false);
@@ -42,11 +43,15 @@ const Menu = () => {
               </li>
             );
           })}
-          <div className="flex items-center gap-4 mt-12"></div>
         </ul>
+        {/* Add DarkModeToggle to mobile menu */}
+        <div className="mt-12">
+          <DarkModeToggle />
+        </div>
       </div>
+
       <nav className="hidden md:flex">
-        <ul className="flex items-center gap-9 font-[400] text-lg">
+        <ul className="flex items-center gap-9 font-[400] text-lg dark:text-white">
           {menuContent.map((item, index) => {
             return (
               <li key={index} className="flex items-center">
@@ -54,6 +59,10 @@ const Menu = () => {
               </li>
             );
           })}
+          {/* Add DarkModeToggle to desktop menu */}
+          <li className="flex items-center">
+            <DarkModeToggle />
+          </li>
         </ul>
       </nav>
 

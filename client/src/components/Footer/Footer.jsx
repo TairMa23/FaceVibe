@@ -1,15 +1,19 @@
 import React from "react";
 import Logo from "../Header/Logo";
-import FooterBar from "../FooterBar/FooterBar";
+ 
 
 const Footer = () => {
   return (
-    <div className="w-full">
-      <div className="py-5">
+    <div className="w-full dark:bg-dark-background">
+      <div className="py-4">
         <div className="container mx-auto w-full grid grid-cols-1 md:grid-cols-3 justify-items-center md:justify-items-start items-center mt-6 gap-6">
           <div className="mx-6 text-center md:text-left flex justify-center items-center">
-              <img src="/images/logo.png" className='w-[180px] object-cover' alt="" />
-              
+          <div className="flex flex-col items-center">
+             <img src="/images/logo.png" className="w-[180px] object-cover" alt="Logo" />
+               <span className="mt-1 text-xl font-bold text-my-Blue dark:text-dark-text fnt">
+                 FACEVIBE
+               </span>
+         </div>
             <form className="flex items-center py-4 gap-2"></form>
           </div>
           <div className="md:mr-6 mx-6 text-left">
@@ -22,7 +26,7 @@ const Footer = () => {
                 Cohen and Lior Aronstein.
               </li>
             </ul>
-            <h2 className="text-my-Blue font-bold text-lg mt-2">
+            <h2 className="text-my-Blue dark:text-white font-bold text-lg mt-2">
               © 2024 FACEVIBE. All rights reserved.
             </h2>
           </div>
@@ -44,7 +48,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <FooterBar />
+       
     </div>
   );
 };

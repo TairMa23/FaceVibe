@@ -38,7 +38,7 @@ const Questions: React.FC = () => {
 
   const handleSendClick = () => {
     if (allQuestionsAnswered) {
-      navigate("/"); 
+      navigate("/contact"); 
     } else {
       toast.error('Please answer all the questions before proceeding.', {
         duration: 4000,
@@ -49,8 +49,10 @@ const Questions: React.FC = () => {
 
   return (
     <>
-      <div className="text-center" style={{ marginTop: '70px' }}>  
-        <h2 className='text-sectionTitle text-6xl text-se fnt font-bold'>Rate Your Experience</h2>
+    <div className="dark:bg-dark-background relative ">
+      <div className="  dark:bg-dark-background h-10"></div>
+      <div className="text-center" >  
+        <h2 className='text-sectionTitle text-6xl text-se fnt font-bold dark:text-dark-text'>Rate Your Experience</h2>
       </div>
       <Box sx={{ width: '100%', padding: '20px' }}>
         <Stack spacing={3} alignItems="center">
@@ -73,11 +75,12 @@ const Questions: React.FC = () => {
       </Box>
       <div className="text-center mt-4">
         <Button
-          className="bg-my-pink px-6 py-3 rounded-sm text-white fnt font-semibold"
+          className="bg-my-pink px-6 py-3 rounded-3xl text-white fnt font-semibold"
           onClick={handleSendClick}
           title="Send"
         >
         </Button>
+      </div>
       </div>
     </>
   );

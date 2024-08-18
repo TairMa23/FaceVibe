@@ -36,7 +36,7 @@ function EndButton() {
     >
       <div className="mx-auto mb-4 px-6 py-0">
         <Button
-          className="bg-my-pink px-6 py-3 rounded-sm text-white fnt font-semibold"
+          className="bg-my-pink px-6 py-3 rounded-3xl text-white fnt font-semibold"
           title="End"
           onClick={handleClick}
         />

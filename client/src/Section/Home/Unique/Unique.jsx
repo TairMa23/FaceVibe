@@ -2,12 +2,12 @@ import React from 'react'
 
 const Unique = () => {
     return (
-        <div id="UniqueSection" className='py-12'>
+        <div id="UniqueSection" className=' dark:bg-dark-background relative py-12'>
             <div className='container mx-auto px-4'>
                 <div className='flex items-start flex-col md:flex-row'>
                     <div className="text-left w-full">  
                         <div className="text-center">  
-                            <h2 className='text-sectionTitle text-6xl text-se fnt font-bold'>About Us</h2>
+                            <h2 className='text-sectionTitle text-6xl text-se fnt font-bold dark:text-dark-text '>About Us</h2>
                         </div>
                         <h5 className='text-my-subText text-2xl font-medium flex items-center gap-2 pt-10'>
                             <span className="bg-my-pink rounded-full min-h-3 min-w-3"></span>

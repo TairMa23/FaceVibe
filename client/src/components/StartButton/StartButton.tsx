@@ -22,7 +22,7 @@ function StartButton() {
     >
       <div className="mx-auto px-6 py-0">
         <Button
-          className="bg-my-pink px-6 py-3 rounded-sm text-white fnt font-semibold start-button"
+          className="bg-my-pink px-6 py-3 rounded-3xl text-white fnt font-semibold start-button"
           title="Start"
           onClick={handleClick}
         />
