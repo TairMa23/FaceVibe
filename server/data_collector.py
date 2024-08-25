@@ -5,7 +5,7 @@ data_collector_blueprint = Blueprint('data_collector_blueprint', __name__)
 
 # MongoDB connection setup
 ratings_collection = db['ratings']
-user_data_collection = db['user_data']
+userpreferences_collection = db['userpreferences']
 
 @data_collector_blueprint.route('/submit-ratings', methods=['POST'])
 def submit_ratings():
@@ -46,16 +46,16 @@ def submit_data():
         if not email or not style_percentages or not emotion_percentages:
             return jsonify({"error": "Missing required data"}), 400
 
-        # Create or update the document in the user_data collection
-        user_data_document = {
+        # Create or update the document in the userpreferences collection
+        userpreferences_document = {
             "stylePercentages": style_percentages,
             "emotionPercentages": emotion_percentages,
         }
 
         # Update the document if it exists, otherwise insert a new one
-        result = user_data_collection.update_one(
+        result = userpreferences_collection.update_one(
             {"email": email},  # Filter to find the document by email
-            {"$set": user_data_document},  # Update the document with the new data
+            {"$set": userpreferences_document},  # Update the document with the new data
             upsert=True  # Insert a new document if none exists with the given email
         )
 
