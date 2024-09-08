@@ -34,16 +34,14 @@ The project combines a React TypeScript frontend for a smooth user interface wit
 1. **Clone the repository**
    ```bash
    git clone https://github.com/yourusername/FaceVibe.git
-   cd FaceVibe
-````
+   cd FaceVibe```
 
 2. **Install dependencies**
 
    Root directory:
 
    ```bash
-   npm install
-   ```
+   npm install```
 
    Client:
 
