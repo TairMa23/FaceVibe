@@ -1,0 +1,13 @@
+{
+  "name": "facevibe",
+  "version": "1.0.0",
+  "description": "FaceVibe project with Python server and React client",
+  "scripts": {
+    "server": "cd server && python main.py",
+    "client": "cd client && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
