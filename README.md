@@ -42,7 +42,8 @@ The project combines a React TypeScript frontend for a smooth user interface wit
    Root directory:
 
    ```bash
-   npm install```
+   npm install
+   ```
 
    Client:
 
