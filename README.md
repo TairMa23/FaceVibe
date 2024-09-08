@@ -59,16 +59,6 @@ The project combines a React TypeScript frontend for a smooth user interface wit
    pip install -r requirements.txt
    ```
 
-   The `requirements.txt` file includes:
-
-   - opencv-python
-   - deepface
-   - tf_keras
-   - fer
-   - flask
-   - flask-cors
-   - flask-socketio
-
 ## 🏃‍♂️ Running the Project
 
 To run both the server and client concurrently:
