@@ -22,4 +22,4 @@ app.register_blueprint(data_collector_blueprint, url_prefix='/api/data')
 socketio.init_app(app, cors_allowed_origins="*")
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True, port=8080)
+    socketio.run(app, debug=True, host='0.0.0.0', port=8080)
