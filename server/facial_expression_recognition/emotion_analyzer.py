@@ -20,7 +20,6 @@ class EmotionAnalyzer:
                 current_avg = self.style_emotion_data[style]['scores'][emotion]
                 new_avg = (current_avg * current_count + score) / new_count
                 self.style_emotion_data[style]['scores'][emotion] = round(new_avg, 2)
-     
     def get_style_emotion_summary(self, style):
         if style:
             return {
@@ -76,8 +75,6 @@ class EmotionAnalyzer:
             print(style_scores[style])
         print(self.get_all_data())
         return style_scores
-
-
     def calculate_emotion_percentages(self):
         total_count = sum(self.total_emotions.values())
         emotion_percentages = {}

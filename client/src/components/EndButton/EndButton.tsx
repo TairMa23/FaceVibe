@@ -8,9 +8,12 @@ import { useEffect } from "react";
 function EndButton() {
   const running = useRunningStore((state) => state.running);
   const setIsRunning = useRunningStore((state) => state.setRunning);
-  const { calculateStyleScores } = useEmotionStore((state) => ({
-    calculateStyleScores: state.calculateStyleScores,
-  }));
+  const { calculateStyleScores, calculateEmotionPercentages } = useEmotionStore(
+    (state) => ({
+      calculateStyleScores: state.calculateStyleScores,
+      calculateEmotionPercentages: state.calculateEmotionPercentages,
+    })
+  );
   const { stop } = useAudioStore();
   const navigate = useNavigate();
 
@@ -23,6 +26,7 @@ function EndButton() {
     stop(); // Stop the audio before navigating
     try {
       await calculateStyleScores();
+      await calculateEmotionPercentages();
       navigate("/Feedback");
     } catch (error) {
       console.error("Error calculating style scores:", error);

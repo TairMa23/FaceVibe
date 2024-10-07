@@ -42,11 +42,9 @@ const processData = (data: { [key: string]: number }) => {
 };
 
 const BoxPlot: React.FC = () => {
-  const { emotionPercentages, calculateEmotionPercentages } = useEmotionStore();
-
-  React.useEffect(() => {
-    calculateEmotionPercentages();
-  }, [calculateEmotionPercentages]);
+  const emotionPercentages = useEmotionStore(
+    (state) => state.emotionPercentages
+  );
 
   const chartData = {
     labels: Object.keys(defaultEmotions), // תמיד נציג את כל הרגשות
@@ -79,9 +77,9 @@ const BoxPlot: React.FC = () => {
           text: "Emotion",
           font: {
             size: 18,
-            weight: "bold", 
+            weight: "bold",
             family: "'Josefin Sans', sans-serif",
-          }, 
+          },
         },
         ticks: {
           font: {
@@ -96,10 +94,9 @@ const BoxPlot: React.FC = () => {
           text: "Percentage (%)",
           font: {
             size: 18,
-            weight: "bold", 
+            weight: "bold",
             family: "'Josefin Sans', sans-serif",
           },
-            
         },
         min: 0,
         max: 100,
@@ -112,7 +109,6 @@ const BoxPlot: React.FC = () => {
             size: 18,
             family: "'Josefin Sans', sans-serif",
           },
-           
         },
       },
     },
@@ -125,16 +121,16 @@ const BoxPlot: React.FC = () => {
         marginTop: "100px",
       }}
     >
-       <h2 className="fnt font-bold text-3xl py-1 text-my-Blue dark:text-dark-text">
-          Emotion Percentages <br />
-       </h2>
-       <span className="text-m font-bold text-textBlue fnt ">
-            showing the percentage distribution of emotions expressed by users while viewing images
-       </span>
-       <span className="text-m font-bold text-textBlue fnt  ">
-       <ChartJSComponent type="bar" data={chartData} options={chartOptions} />
-       </span>
-       
+      <h2 className="fnt font-bold text-3xl py-1 text-my-Blue dark:text-dark-text">
+        Emotion Percentages <br />
+      </h2>
+      <span className="text-m font-bold text-textBlue fnt ">
+        showing the percentage distribution of emotions expressed by users while
+        viewing images
+      </span>
+      <span className="text-m font-bold text-textBlue fnt  ">
+        <ChartJSComponent type="bar" data={chartData} options={chartOptions} />
+      </span>
     </div>
   );
 };

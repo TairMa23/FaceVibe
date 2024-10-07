@@ -3,18 +3,13 @@ from dotenv import load_dotenv
 from flask import Blueprint, jsonify, request
 from pymongo import MongoClient
 import random
-
-# Load environment variables
-load_dotenv()
+from DataBase.mongodb import db
 
 # Create the MongoDB blueprint
 mongodb_blueprint = Blueprint('mongodb_blueprint', __name__)
 
 # MongoDB connection setup
-MONGODB_URI = os.getenv('MONGODB_URI')
-client = MongoClient(MONGODB_URI)
-db = client.get_default_database()  # This will use the database specified in the URI
-collection = db[str(os.getenv('COLLECTION'))]
+collection = db['products']
 
 @mongodb_blueprint.route('/products', methods=['GET'])
 def get_products():

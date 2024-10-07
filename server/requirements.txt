@@ -2,3 +2,8 @@ opencv-python
 deepface
 tf_keras
 fer
+python-dotenv
+pymongo
+flask
+flask-socketio
+eventlet
