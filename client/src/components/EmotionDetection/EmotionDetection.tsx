@@ -96,17 +96,6 @@ const EmotionDetection: React.FC = () => {
 
   return (
     <div>
-      {!emotion ? (
-        <>
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        </>
-      ) : (
-        <p>
-          Detected Emotion: {emotion} (Confidence: {(score * 100).toFixed(2)}%)
-        </p>
-      )}
       <video ref={videoRef} style={{ display: "none" }} />
     </div>
   );
