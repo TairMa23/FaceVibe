@@ -7,8 +7,8 @@ import Rating from "../../../components/Rating/Rating";
 import Button from "../../../components/Button/Button";
 import { toast } from "react-hot-toast"; // Import react-hot-toast
 import { useRatingStore } from "../../../store/ratingStore";
-import axios from "axios";
 import ThankYouModal from "../../../components/Rating/ThankYouModal";
+import axiosInstance from "../../../store/axiosConfig";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#ffede9",
@@ -45,7 +45,7 @@ const Questions: React.FC = () => {
 
     if (allQuestionsAnswered) {
       try {
-        await axios.post("http://localhost:8080/api/data/submit-ratings", {
+        await axiosInstance.post("/api/data/submit-ratings", {
           ratings,
         });
         setOpen(true); // Open the modal

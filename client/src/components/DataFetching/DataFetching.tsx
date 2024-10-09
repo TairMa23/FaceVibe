@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
-import axios from "axios";
 import { useImageStore, ImageItem } from "../../store/useStore";
+import axiosInstance from "../../store/axiosConfig";
 
 const DataFetching: React.FC = () => {
   const setImages = useImageStore((state) => state.setImages);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8080/api/mongodb/products"
+        const response = await axiosInstance.get(
+          "/api/mongodb/products"
         );
         console.log("sucsses load api/mongodb/products");
 

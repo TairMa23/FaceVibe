@@ -5,8 +5,8 @@ import Typography from "@mui/material/Typography";
 import Button from "../Button/Button";
 import { useEmotionStore } from "../../store/useEmotionStore";
 import { Checkbox, FormControlLabel, TextField } from "@mui/material";
-import axios from "axios";
 import toast from "react-hot-toast";
+import axiosInstance from "../../store/axiosConfig";
 
 interface ThankYouModalProps {
   open: boolean;
@@ -34,7 +34,7 @@ const ThankYouModal: React.FC<ThankYouModalProps> = ({ open, onClose }) => {
   const handleSave = async () => {
     if (saveData && email) {
       try {
-        await axios.post("http://localhost:8080/api/data/submit-data", {
+        await axiosInstance.post("/api/data/submit-data", {
           email,
           stylePercentages,
           emotionPercentages,
