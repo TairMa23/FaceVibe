@@ -124,11 +124,11 @@ const BoxPlot: React.FC = () => {
       <h2 className="fnt font-bold text-3xl py-1 text-my-Blue dark:text-dark-text">
         Emotion Percentages <br />
       </h2>
-      <span className="text-m font-bold text-textBlue fnt ">
+      <span className="text-m font-bold text-textBlue fnt dark:text-dark-text">
         showing the percentage distribution of emotions expressed by users while
         viewing images
       </span>
-      <span className="text-m font-bold text-textBlue fnt  ">
+      <span className="text-m font-bold text-textBlue fnt dark:text-dark-text ">
         <ChartJSComponent type="bar" data={chartData} options={chartOptions} />
       </span>
     </div>

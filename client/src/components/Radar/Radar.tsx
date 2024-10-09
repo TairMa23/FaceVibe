@@ -98,7 +98,7 @@ const Radar: React.FC = () => {
       <h2 className="fnt font-bold text-3xl py-1 text-my-Blue dark:text-dark-text">
         Design Styles Analysis <br />
        </h2>
-       <span className="text-m font-bold text-my-pink fnt ">
+       <span className="text-m font-bold text-my-pink fnt dark:text-dark-text ">
        <p>Based on {Object.keys(stylePercentages).length} different styles</p>
        </span>
       <RadarChart data={radarData} options={radarOptions} />
