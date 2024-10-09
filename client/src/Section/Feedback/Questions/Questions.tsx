@@ -91,7 +91,7 @@ const Questions: React.FC = () => {
             </Item>
             <Item>
               <Rating
-                question="Rate your satisfaction from our website."
+                question="Was the time allocated for each image suitable in your opinion? "
                 onChange={(rating) => handleRatingChange(2, rating)}
               />
             </Item>

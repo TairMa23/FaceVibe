@@ -18,13 +18,13 @@ const Newslater = () => {
                             <div className='flex flex-col text-textBlue text-lg font-semibold'></div>
                         </div>
                         <div className='flex items-center gap-2'>
-                            <a href="https://www.linkedin.com/in/your-linkedin-profile/" target="_blank" rel="noopener noreferrer">
+                            <a href="www.linkedin.com/in/tair22" target="_blank" rel="noopener noreferrer">
                                 <FaLinkedin size={100} className="text-[#afc3f2] p-2 rounded-full  " />
                             </a>
                             <div className='flex flex-col text-textBlue text-lg font-semibold'></div>
                         </div>
                         <div className='flex items-center gap-2'>
-                            <a href="https://www.google.com/maps/search/?api=1&query=161+Gefen+Street,+Mavoa" target="_blank" rel="noopener noreferrer">
+                            <a href="https://www.google.com/maps/place/121,+%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%E2%80%AD/@31.402895,34.601708,17z/data=!3m1!4b1!4m6!3m5!1s0x15027c2b90c0435f:0xa8cf1ab4e7f6b4fc!8m2!3d31.402895!4d34.601708!16s%2Fg%2F11c5kt9j7s?entry=ttu&g_ep=EgoyMDI0MTAwMi4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">
                                 <FaMapLocationDot size={100} className="text-[#f0b8ac] p-2 rounded-full  " />
                             </a>
                             <div className='flex flex-col text-textBlue text-lg font-semibold'>

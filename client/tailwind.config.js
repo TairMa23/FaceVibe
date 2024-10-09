@@ -35,6 +35,8 @@ export default {
          'dark-my-subText': '#0f3460',
          'dark-accent': '#e94560',
          'dark-text': '#ffffff',
+         'dark-background3': '#361e5f',
+
       },
       
     },
