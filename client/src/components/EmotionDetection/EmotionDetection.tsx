@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef } from "react";
 import { useImageStore, useRunningStore } from "../../store/useStore";
 import { useEmotionStore } from "../../store/useEmotionStore";
 
@@ -9,51 +9,69 @@ const EmotionDetection: React.FC = () => {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const { currentImageId, currentImageStyle } = useImageStore();
-  const { detectorLoaded, sendImageToServer } = useEmotionStore();
+  const { detectorLoaded, emotion, score, sendImageToServer } =
+    useEmotionStore();
   const setCameraPermissionGranted = useRunningStore(
     (state) => state.setCameraPermissionGranted
   );
 
-  const captureImage = useCallback(() => {
-    if (!videoRef.current) return;
-
-    const canvas = document.createElement("canvas");
-    canvas.width = videoRef.current.videoWidth;
-    canvas.height = videoRef.current.videoHeight;
-    const context = canvas.getContext("2d");
-    if (context) {
-      context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-      const imageDataURL = canvas.toDataURL("image/jpeg");
-      sendImageToServer(imageDataURL, currentImageId, currentImageStyle);
-    }
-  }, [sendImageToServer, currentImageId, currentImageStyle]);
-
   useEffect(() => {
-    if (!detectorLoaded || !running) return;
+    if (!detectorLoaded) return;
 
-    const setupCamera = async () => {
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        console.error("MediaDevices interface not available.");
-        setCameraPermissionGranted(false);
-        return;
-      }
-
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        setCameraPermissionGranted(true);
-        streamRef.current = stream;
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          await videoRef.current.play();
-          intervalRef.current = setInterval(captureImage, 1000);
-        }
-      } catch (error) {
-        console.error("Error accessing the camera:", error);
-        setCameraPermissionGranted(false);
+    const captureImage = () => {
+      if (videoRef.current) {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then((stream) => {
+            setCameraPermissionGranted(true);
+            streamRef.current = stream;
+            videoRef.current!.srcObject = stream;
+            videoRef.current!.onloadedmetadata = () => {
+              videoRef.current!.play();
+              intervalRef.current = setInterval(() => {
+                if (videoRef.current) {
+                  const canvas = document.createElement("canvas");
+                  canvas.width = videoRef.current.videoWidth;
+                  canvas.height = videoRef.current.videoHeight;
+                  const context = canvas.getContext("2d");
+                  if (context) {
+                    context.drawImage(
+                      videoRef.current,
+                      0,
+                      0,
+                      canvas.width,
+                      canvas.height
+                    );
+                    const imageDataURL = canvas.toDataURL("image/jpeg");
+                    sendImageToServer(
+                      imageDataURL,
+                      currentImageId,
+                      currentImageStyle
+                    );
+                  }
+                }
+              }, 1000); // Capture image every second
+            };
+          })
+          .catch((error) => {
+            console.error("Error accessing the camera:", error);
+          });
       }
     };
 
-    setupCamera();
+    if (running && detectorLoaded) {
+      console.log("running && detectorLoaded");
+      console.log(running);
+
+      captureImage();
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+      }
+    }
 
     return () => {
       if (intervalRef.current) {
@@ -63,7 +81,14 @@ const EmotionDetection: React.FC = () => {
         streamRef.current.getTracks().forEach((track) => track.stop());
       }
     };
-  }, [running, detectorLoaded, setCameraPermissionGranted, captureImage]);
+  }, [
+    running,
+    currentImageId,
+    detectorLoaded,
+    sendImageToServer,
+    currentImageStyle,
+    setCameraPermissionGranted,
+  ]);
 
   if (!detectorLoaded) {
     return <div>Loading emotion detection model...</div>;
@@ -71,6 +96,17 @@ const EmotionDetection: React.FC = () => {
 
   return (
     <div>
+      {!emotion ? (
+        <>
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </>
+      ) : (
+        <p>
+          Detected Emotion: {emotion} (Confidence: {(score * 100).toFixed(2)}%)
+        </p>
+      )}
       <video ref={videoRef} style={{ display: "none" }} />
     </div>
   );
