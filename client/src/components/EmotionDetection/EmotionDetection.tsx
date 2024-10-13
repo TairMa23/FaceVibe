@@ -32,6 +32,12 @@ const EmotionDetection: React.FC = () => {
     if (!detectorLoaded || !running) return;
 
     const setupCamera = async () => {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        console.error("MediaDevices interface not available.");
+        setCameraPermissionGranted(false);
+        return;
+      }
+
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
         setCameraPermissionGranted(true);
