@@ -12,6 +12,6 @@ export default defineConfig({
       cert: fs.readFileSync(path.resolve(__dirname, 'cert.pem')),
     },
     host: true, // Listen on all IPv4 interfaces
-    port: 3001, 
+    port: 443, 
   },
 })
