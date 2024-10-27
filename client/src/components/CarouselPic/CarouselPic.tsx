@@ -4,12 +4,14 @@ import { useImageStore, useRunningStore } from "../../store/useStore";
 import { MdFullscreen, MdFullscreenExit } from "react-icons/md";
 import StartButton from "../StartButton/StartButton";
 import EndButton from "../EndButton/EndButton";
+import { useAudio } from "../../store/useAudio";
 
 interface CarouselPicProps {
   soundButton: React.ReactNode;
 }
 
 const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
+  const { isPlaying, setIsPlaying } = useAudio();
   const images = useImageStore((state) => state.images);
   const setCurrentImageId = useImageStore((state) => state.setCurrentImageId);
   const setCurrentImageStyle = useImageStore(
@@ -45,7 +47,7 @@ const CarouselPic: React.FC<CarouselPicProps> = ({ soundButton }) => {
     const timer = setTimeout(() => {
       setShowStartButton(true);
     }, 20000);
-
+    setIsPlaying(true)
     return () => clearTimeout(timer);
   }, []);
 

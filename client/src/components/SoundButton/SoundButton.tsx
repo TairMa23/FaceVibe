@@ -7,18 +7,7 @@ const SoundButton: React.FC = () => {
   const { isPlaying, setIsPlaying } = useAudio();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // useEffect(() => {
-  //   audioRef.current = new Audio("/public/sounds/Gallery.mp3");
-  //   audioRef.current.loop = true;
-  //   audioRef.current.preload = "auto";
 
-  //   return () => {
-  //     if (audioRef.current) {
-  //       audioRef.current.pause();
-  //       audioRef.current = null;
-  //     }
-  //   };
-  // }, []);
 
   useEffect(() => {
     const handlePlay = async () => {
